@@ -35,6 +35,11 @@
 - [Data Models](./data-models.md)
 - [Hướng Dẫn Phát Triển](./development-guide.md)
 
+### Hướng Dẫn & Quy Trình
+
+- [Firebase Setup](./firebase-setup.md) - Hướng dẫn cài đặt và cấu hình Firebase (Console, SDK, Security Rules)
+- [GitFlow & Branching](./gitflow.md) - GitFlow, branching strategy, Conventional Commits, PR rules
+
 ### Deep Dive
 
 - [Navigation Deep Dive](./navigation-deep-dive.md) - Phân tích chi tiết Coordinator Pattern & luồng điều hướng
@@ -46,13 +51,12 @@
 - [DI & DIP Deep Dive](./knowledge-di-and-dip-deep-dive.md) - Dependency Injection vs Dependency Inversion, Swinject, anti-patterns
 - [ARC (Memory Management) Deep Dive](./knowledge-arc-deep-dive.md) - Reference counting, retain cycles, weak/unowned, phân tích VietMatch
 - [@StateObject vs @ObservedObject](./knowledge-stateobject-vs-observedobject.md) - So sánh, quy tắc chọn, áp dụng trong VietMatch
+- [Async/Await Deep Dive](./knowledge-async-await-deep-dive.md) - Swift async/await, Task, TaskGroup, Actor, @MainActor
 
 ---
 
-## Tài Liệu Hiện Có (Root)
+## Tham Chiếu Khác
 
-- [ARCHITECTURE.md](../ARCHITECTURE.md) - Kiến trúc chi tiết với Mermaid diagrams
-- [GITFLOW.md](../GITFLOW.md) - GitFlow, branching strategy, conventional commits
 - [project.yml](../project.yml) - XcodeGen project configuration
 
 ---

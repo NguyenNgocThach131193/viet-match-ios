@@ -24,12 +24,71 @@ Sắp xếp từ **High-level** (ít thay đổi, gần business rules) đến *
 
 > **Nguyên tắc DIP:** Domain (high-level) định nghĩa protocols. Data (low-level) implements chúng. Đổi Firebase → Supabase chỉ sửa Data layer — Domain và Presentation không thay đổi.
 
+```mermaid
+graph TB
+    subgraph Presentation ["Presentation Layer"]
+        Views["Views - SwiftUI"]
+        ViewModels["ViewModels - ObservableObject"]
+        Coordinators["Coordinators - Navigation"]
+        Components["Reusable Components"]
+    end
+
+    subgraph Domain ["Domain Layer"]
+        UseCases["Use Cases - Business Logic"]
+        Entities["Entities - Models"]
+        RepoProtocols["Repository Protocols"]
+    end
+
+    subgraph Data ["Data Layer"]
+        Repositories["Repository Implementations"]
+        DTOs["DTOs + Mappers"]
+        Remote["Firebase Services"]
+        Local["UserDefaults"]
+    end
+
+    Views --> ViewModels
+    ViewModels --> UseCases
+    Coordinators --> Views
+    UseCases --> RepoProtocols
+    UseCases --> Entities
+    Repositories -.->|implements| RepoProtocols
+    Repositories --> DTOs
+    DTOs --> Remote
+    DTOs --> Local
+    DTOs -->|map to| Entities
+
+    style Presentation fill:#FFE0E6,stroke:#FE3C72,stroke-width:2px
+    style Domain fill:#FFF3E0,stroke:#FF8A65,stroke-width:2px
+    style Data fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+```
+
 ### MVVM-C Pattern
 
 ```
 View (SwiftUI) → ViewModel (@MainActor, @Published) → UseCase → Repository → Firebase
      ↑
 Coordinator (Navigation, NavigationStack)
+```
+
+#### Data Flow (Ví dụ: Swipe Right)
+
+```mermaid
+sequenceDiagram
+    participant V as View - SwiftUI
+    participant VM as ViewModel
+    participant UC as UseCase
+    participant R as Repository
+    participant DS as Firebase Service
+
+    V->>VM: User action - swipe right
+    VM->>UC: swipeUseCase.execute
+    UC->>R: matchRepository.swipe
+    R->>DS: firestoreService.setDocument
+    DS-->>R: Success / Match found
+    R-->>UC: Match result
+    UC-->>VM: Match result
+    VM-->>V: Published update showMatchAlert = true
+    V->>V: Re-render UI
 ```
 
 ### Dependency Flow
@@ -60,6 +119,22 @@ AppContainer
 | **DataAssembly** | FirebaseAuthService, FirestoreService, FirebaseStorageService, FCMService, UserDefaultsService, 4 Repositories | 9 |
 | **DomainAssembly** | LoginUseCase, RegisterUseCase, LogoutUseCase, GetProfileUseCase, UpdateProfileUseCase, UploadPhotoUseCase, SwipeUseCase, GetMatchesUseCase, GetDiscoverProfilesUseCase, SendMessageUseCase, GetMessagesUseCase, GetConversationsUseCase | 12 |
 | **PresentationAssembly** | AppCoordinator, 6 ViewModels (Login, Register, Onboarding, Discover, Matches, Chat, Conversations, Profile, Settings) | ~10 |
+
+```mermaid
+graph LR
+    subgraph DI ["AppContainer - Swinject"]
+        DataAssembly["DataAssembly<br/>--------<br/>FirebaseAuthService<br/>FirestoreService<br/>StorageService<br/>FCMService<br/>UserDefaultsService<br/>--------<br/>AuthRepository<br/>ProfileRepository<br/>MatchRepository<br/>ChatRepository"]
+
+        DomainAssembly["DomainAssembly<br/>--------<br/>LoginUseCase<br/>RegisterUseCase<br/>LogoutUseCase<br/>GetProfileUseCase<br/>UpdateProfileUseCase<br/>UploadPhotoUseCase<br/>SwipeUseCase<br/>GetMatchesUseCase<br/>GetDiscoverProfilesUseCase<br/>SendMessageUseCase<br/>GetMessagesUseCase<br/>GetConversationsUseCase"]
+
+        PresentationAssembly["PresentationAssembly<br/>--------<br/>AppCoordinator<br/>LoginViewModel<br/>RegisterViewModel<br/>OnboardingViewModel<br/>DiscoverViewModel<br/>MatchesViewModel<br/>ChatViewModel<br/>ConversationsViewModel<br/>ProfileViewModel<br/>SettingsViewModel"]
+    end
+
+    DataAssembly -->|provides repos| DomainAssembly
+    DomainAssembly -->|provides use cases| PresentationAssembly
+
+    style DI fill:#F3E5F5,stroke:#9C27B0,stroke-width:2px
+```
 
 ---
 
@@ -104,6 +179,46 @@ AppCoordinator (Root)
 | DiscoverCoordinator | discover, profileDetail(profileId) |
 | ChatCoordinator | conversations, chat(matchId) |
 | ProfileCoordinator | profile, editProfile, settings |
+
+```mermaid
+graph TD
+    App["VietMatchApp"] --> AppCoord["AppCoordinator"]
+
+    AppCoord -->|not authenticated| AuthCoord["AuthCoordinator"]
+    AppCoord -->|not onboarded| Onboarding["OnboardingView"]
+    AppCoord -->|authenticated| MainTab["MainTabCoordinator"]
+
+    AuthCoord --> Login["LoginView"]
+    AuthCoord --> Register["RegisterView"]
+    AuthCoord --> ForgotPW["ForgotPasswordView"]
+
+    Onboarding --> Step1["ProfileSetup"]
+    Onboarding --> Step2["GenderSelection"]
+    Onboarding --> Step3["PhotoUpload"]
+    Onboarding --> Step4["Interests"]
+
+    MainTab --> DiscoverCoord["DiscoverCoordinator"]
+    MainTab --> MatchesTab["MatchesView"]
+    MainTab --> ChatCoord["ChatCoordinator"]
+    MainTab --> ProfileCoord["ProfileCoordinator"]
+
+    DiscoverCoord --> Discover["DiscoverView - Swipe Cards"]
+    DiscoverCoord --> ProfileDetail["ProfileDetailView"]
+
+    ChatCoord --> Conversations["ConversationsView"]
+    ChatCoord --> Chat["ChatView - Messages"]
+
+    ProfileCoord --> Profile["ProfileView"]
+    ProfileCoord --> EditProfile["EditProfileView"]
+    ProfileCoord --> Settings["SettingsView"]
+
+    style AppCoord fill:#FE3C72,color:#fff,stroke:#E91E63
+    style MainTab fill:#FF8A65,color:#fff,stroke:#FF6B6B
+    style AuthCoord fill:#2196F3,color:#fff,stroke:#1976D2
+    style DiscoverCoord fill:#4CAF50,color:#fff,stroke:#388E3C
+    style ChatCoord fill:#9C27B0,color:#fff,stroke:#7B1FA2
+    style ProfileCoord fill:#FF9800,color:#fff,stroke:#F57C00
+```
 
 ---
 
@@ -152,6 +267,34 @@ AppCoordinator (Root)
 | **FirebaseStorageService** | Firebase Storage | Upload/delete images (JPEG, path: photos/{userId}/{UUID}.jpg) |
 | **FCMService** | Cloud Messaging | Push permissions, token, topic subscribe |
 | **UserDefaultsService** | UserDefaults | Onboarding state, userId, FCM token, last refresh |
+
+```mermaid
+graph TB
+    subgraph Firebase ["Firebase Backend"]
+        Auth["Firebase Auth<br/>--------<br/>Email/Password<br/>Google Sign-In<br/>Apple Sign-In"]
+
+        Firestore["Cloud Firestore<br/>--------<br/>users/<br/>profiles/<br/>matches/<br/>matches/messages/<br/>swipes/"]
+
+        Storage["Firebase Storage<br/>--------<br/>photos/userId/"]
+
+        FCM["Cloud Messaging<br/>--------<br/>New Match<br/>New Message<br/>Super Like"]
+    end
+
+    subgraph Services ["Swift Services"]
+        AuthSvc["FirebaseAuthService"]
+        FirestoreSvc["FirestoreService"]
+        StorageSvc["FirebaseStorageService"]
+        FCMSvc["FCMService"]
+    end
+
+    AuthSvc --> Auth
+    FirestoreSvc --> Firestore
+    StorageSvc --> Storage
+    FCMSvc --> FCM
+
+    style Firebase fill:#FFF8E1,stroke:#FFA000,stroke-width:2px
+    style Services fill:#E8F5E9,stroke:#4CAF50,stroke-width:2px
+```
 
 ### Firestore Collections
 
