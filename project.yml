@@ -1,0 +1,119 @@
+name: VietMatch
+options:
+  bundleIdPrefix: com.vietmatch
+  deploymentTarget:
+    iOS: "16.0"
+  xcodeVersion: "15.0"
+  generateEmptyDirectories: true
+  groupSortPosition: top
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    TARGETED_DEVICE_FAMILY: "1" # iPhone only
+    DEVELOPMENT_TEAM: ""
+    CODE_SIGN_STYLE: Automatic
+    INFOPLIST_FILE: VietMatch/App/Info.plist
+
+packages:
+  FirebaseSDK:
+    url: https://github.com/firebase/firebase-ios-sdk
+    from: "11.0.0"
+  Alamofire:
+    url: https://github.com/Alamofire/Alamofire
+    from: "5.9.0"
+  Kingfisher:
+    url: https://github.com/onevcat/Kingfisher
+    from: "7.12.0"
+  Swinject:
+    url: https://github.com/Swinject/Swinject
+    from: "2.9.0"
+
+targets:
+  VietMatch:
+    type: application
+    platform: iOS
+    sources:
+      - path: VietMatch
+        excludes:
+          - "**/.DS_Store"
+    resources:
+      - path: VietMatch/App/Resources/Assets.xcassets
+      - path: VietMatch/App/Resources/GoogleService-Info.plist
+        optional: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.vietmatch.app
+        PRODUCT_NAME: VietMatch
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        INFOPLIST_FILE: VietMatch/App/Info.plist
+        CODE_SIGN_ENTITLEMENTS: VietMatch/App/VietMatch.entitlements
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
+        ENABLE_PREVIEWS: true
+    dependencies:
+      - package: FirebaseSDK
+        product: FirebaseAuth
+      - package: FirebaseSDK
+        product: FirebaseFirestore
+      - package: FirebaseSDK
+        product: FirebaseStorage
+      - package: FirebaseSDK
+        product: FirebaseMessaging
+      - package: FirebaseSDK
+        product: FirebaseAnalytics
+      - package: Alamofire
+      - package: Kingfisher
+      - package: Swinject
+    entitlements:
+      path: VietMatch/App/VietMatch.entitlements
+      properties:
+        aps-environment: development
+        com.apple.developer.applesignin:
+          - Default
+
+  VietMatchTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: VietMatchTests
+    dependencies:
+      - target: VietMatch
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.vietmatch.app.tests
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/VietMatch.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VietMatch"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+
+  VietMatchUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: VietMatchUITests
+    dependencies:
+      - target: VietMatch
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.vietmatch.app.uitests
+        TEST_TARGET_NAME: VietMatch
+
+schemes:
+  VietMatch:
+    build:
+      targets:
+        VietMatch: all
+        VietMatchTests: [test]
+        VietMatchUITests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - VietMatchTests
+        - VietMatchUITests
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
