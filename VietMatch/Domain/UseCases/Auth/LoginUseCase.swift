@@ -29,7 +29,7 @@ final class LoginUseCase: LoginUseCaseProtocol {
     }
 }
 
-enum AuthError: LocalizedError {
+enum AuthError: LocalizedError, Equatable {
     case invalidCredentials
     case userNotFound
     case emailAlreadyInUse

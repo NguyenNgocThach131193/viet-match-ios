@@ -15,9 +15,11 @@ final class MockAuthRepository: AuthRepositoryProtocol {
     var loginResult: Result<User, Error> = .success(User(id: "1", email: "test@test.com", displayName: "Test"))
     var registerResult: Result<User, Error> = .success(User(id: "1", email: "test@test.com", displayName: "Test"))
     var logoutError: Error?
+    var resetPasswordError: Error?
     var loginCallCount = 0
     var registerCallCount = 0
     var logoutCallCount = 0
+    var resetPasswordCallCount = 0
 
     func login(email: String, password: String) async throws -> User {
         loginCallCount += 1
@@ -43,7 +45,10 @@ final class MockAuthRepository: AuthRepositoryProtocol {
         currentUserSubject.send(nil)
     }
 
-    func resetPassword(email: String) async throws {}
+    func resetPassword(email: String) async throws {
+        resetPasswordCallCount += 1
+        if let error = resetPasswordError { throw error }
+    }
 
     func deleteAccount() async throws {}
 }

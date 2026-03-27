@@ -26,6 +26,7 @@
 		2DCF972F3632B904A16B5E23 /* UserMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D5EBBE51CF2C63AF70ED9C /* UserMapper.swift */; };
 		2DE4752C006AB555DA3B0016 /* UploadPhotoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D912E806BAABC04956367759 /* UploadPhotoUseCase.swift */; };
 		2DFECF073EF511E70FC6CE56 /* MatchDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7E84893B5C0199663E3591 /* MatchDTO.swift */; };
+		2E2CDFA9F6F92892CD4625EF /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3353B50D88E416BC4EF442 /* ForgotPasswordViewModel.swift */; };
 		32CD87A3E24343078E9F634E /* AuthRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F21C0B6A02336EAD422909 /* AuthRepositoryProtocol.swift */; };
 		34FF1E51A97BDE21DFE10053 /* MessageBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4646ACEEC3F04A848D330687 /* MessageBubbleView.swift */; };
 		353B56624383A98CC50058EF /* SwipeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426015EE66A3DAD0DB89FAAE /* SwipeUseCase.swift */; };
@@ -56,6 +57,7 @@
 		5DBA66D04FA1F20BF92895FC /* RegisterUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4714EFF707AF9F7C48DB071E /* RegisterUseCase.swift */; };
 		5FC0387C89136A8C94302E5C /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 03F3A8986CA8F09FB7F7B384 /* Swinject */; };
 		63192F917172C604824647AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EC4DA90AC992B970F93840 /* AppDelegate.swift */; };
+		63D34601DE6FBFC0B3168DC8 /* ForgotPasswordViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4DAA3861C3571430C77294 /* ForgotPasswordViewModelTests.swift */; };
 		6589CEBEC05532E9DE74CCDA /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11AF6E06A37CF7F870C2CDA /* Coordinator.swift */; };
 		67958FA72F5199FC6E9F997E /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F65CB378BEA319D707EBC96 /* ProfileViewModel.swift */; };
 		6A0D4301010B247B8FC48B02 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC77E85B5F54FCEF0D2DC3CE /* OnboardingView.swift */; };
@@ -85,6 +87,7 @@
 		9AE2A2BAC82D809C9C049BE2 /* SwipeUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCBC5B4518AC97A403A428D7 /* SwipeUseCaseTests.swift */; };
 		9B5A9309A00BA530CD4ADCD7 /* Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA77BF8549AC19D401D3B52 /* Spacing.swift */; };
 		9CB88B979FFA5B518CD444DF /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 49220EA3DCB345AEDEB95022 /* FirebaseFirestore */; };
+		A23EFD82BA407E140F9F917F /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEC5EB437CB2F7EF0C21690 /* ForgotPasswordView.swift */; };
 		A275DE9B0B97249074E6B71D /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A25CAE77E281269568385CB /* EditProfileView.swift */; };
 		A2ED6BB69220CE05FF0E7774 /* DiscoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2085E7F6A2342349E7837B3 /* DiscoverView.swift */; };
 		A83640774D8ED3E0CC604C21 /* GetProfileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEA164C0846CCBC1C7A551A /* GetProfileUseCase.swift */; };
@@ -114,6 +117,7 @@
 		EF458534213FA4B7EC9432C4 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9E6A218D6A3E70AA9CF3F6 /* LoginView.swift */; };
 		F4318FD3734A74A96F47EF4F /* SwipeCardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1F6C6E946AFC6F99B7B690 /* SwipeCardStack.swift */; };
 		FAD8EF71858FCC900574CB3B /* GetMessagesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEF793EC52B84AE4F92C75F /* GetMessagesUseCase.swift */; };
+		FDCDF7CE26FEF1ABEC94012B /* ResetPasswordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BC585E03F186852D80E39D /* ResetPasswordUseCase.swift */; };
 		FE38283EB50E6C43585EED58 /* GetMatchesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FAD434C12490A094A40E00 /* GetMatchesUseCase.swift */; };
 /* End PBXBuildFile section */
 
@@ -152,6 +156,7 @@
 		2BEA164C0846CCBC1C7A551A /* GetProfileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProfileUseCase.swift; sourceTree = "<group>"; };
 		2D6648C85E469835601C5CB9 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		2D9B58D564E7F8BA6D69C850 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
+		31BC585E03F186852D80E39D /* ResetPasswordUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordUseCase.swift; sourceTree = "<group>"; };
 		33CD25BE306A24CE2FF1B792 /* MatchesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesViewModel.swift; sourceTree = "<group>"; };
 		37F2DB28B93B7CF493A3E3AA /* MessageDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDTO.swift; sourceTree = "<group>"; };
 		3A7E503876DED3AE47B33C10 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
@@ -169,7 +174,7 @@
 		4CFDC8BF84B547C796DC8D49 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		4E05F265547C3DFD9E46D9B5 /* DiscoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewModel.swift; sourceTree = "<group>"; };
 		4E6C5CD2F5D13EF52753CBE2 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
-		4E909BA7B8AD2A0C566BDEF3 /* VM Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VM Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E909BA7B8AD2A0C566BDEF3 /* VietMatch.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = VietMatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E9E6A218D6A3E70AA9CF3F6 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		4F1203AB8C6BF7FE5F772BC6 /* AuthRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryTests.swift; sourceTree = "<group>"; };
 		509F1D16097CDEA2C9B31B7D /* ProfileSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupView.swift; sourceTree = "<group>"; };
@@ -206,6 +211,8 @@
 		939E06FC387088C1AB1D846A /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		97FAD434C12490A094A40E00 /* GetMatchesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMatchesUseCase.swift; sourceTree = "<group>"; };
 		98EC4DA90AC992B970F93840 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		9CEC5EB437CB2F7EF0C21690 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
+		9F4DAA3861C3571430C77294 /* ForgotPasswordViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModelTests.swift; sourceTree = "<group>"; };
 		9FD98D77AB1C74B99DCEE1B8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A0F21611D94F59C2B4B4BE75 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		A29662F50EF33A5D643E8821 /* FirebaseAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthService.swift; sourceTree = "<group>"; };
@@ -216,6 +223,7 @@
 		B2085E7F6A2342349E7837B3 /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
 		B4F086D49FCEF6895BE3B632 /* MessageMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageMapper.swift; sourceTree = "<group>"; };
 		B5607EA521E21B5A9BA0805B /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		CB3353B50D88E416BC4EF442 /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
 		CC025AB98568003C287768F5 /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
 		CE3760E26F22A6C8B856BDCE /* AuthFlowUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFlowUITests.swift; sourceTree = "<group>"; };
 		D100ECDC0D8F3C04355A4837 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
@@ -371,7 +379,7 @@
 		32D26BBCEA14E5D60287202A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4E909BA7B8AD2A0C566BDEF3 /* VM Dev.app */,
+				4E909BA7B8AD2A0C566BDEF3 /* VietMatch.app */,
 				5D62F4A75AA4074FDBCEA97D /* VietMatchTests.xctest */,
 				E2385CA862C3A6FE36520F0E /* VietMatchUITests.xctest */,
 			);
@@ -402,6 +410,7 @@
 			isa = PBXGroup;
 			children = (
 				A8ECAF517D6C7BC58426168D /* DiscoverViewModelTests.swift */,
+				9F4DAA3861C3571430C77294 /* ForgotPasswordViewModelTests.swift */,
 				2D9B58D564E7F8BA6D69C850 /* LoginViewModelTests.swift */,
 			);
 			path = ViewModels;
@@ -542,6 +551,7 @@
 				403F659DD2E4D3E9D89CA8ED /* LoginUseCase.swift */,
 				77188812CD822A7E5BF164BF /* LogoutUseCase.swift */,
 				4714EFF707AF9F7C48DB071E /* RegisterUseCase.swift */,
+				31BC585E03F186852D80E39D /* ResetPasswordUseCase.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -695,6 +705,8 @@
 		EFC9D8F011D5E4EC2574157E /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				9CEC5EB437CB2F7EF0C21690 /* ForgotPasswordView.swift */,
+				CB3353B50D88E416BC4EF442 /* ForgotPasswordViewModel.swift */,
 				4E9E6A218D6A3E70AA9CF3F6 /* LoginView.swift */,
 				4E6C5CD2F5D13EF52753CBE2 /* LoginViewModel.swift */,
 				90748B1D06E91B44D153B5E6 /* RegisterView.swift */,
@@ -759,7 +771,7 @@
 				03F3A8986CA8F09FB7F7B384 /* Swinject */,
 			);
 			productName = VietMatch;
-			productReference = 4E909BA7B8AD2A0C566BDEF3 /* VM Dev.app */;
+			productReference = 4E909BA7B8AD2A0C566BDEF3 /* VietMatch.app */;
 			productType = "com.apple.product-type.application";
 		};
 		99FAB6A76C9FBEED0B7D56F2 /* VietMatchTests */ = {
@@ -904,6 +916,8 @@
 				CDDD637BF7C81A25E57ECEE5 /* FirebaseAuthService.swift in Sources */,
 				77C251AE422EE7CA20F65452 /* FirebaseStorageService.swift in Sources */,
 				C5C689D70EE45659BB83D014 /* FirestoreService.swift in Sources */,
+				A23EFD82BA407E140F9F917F /* ForgotPasswordView.swift in Sources */,
+				2E2CDFA9F6F92892CD4625EF /* ForgotPasswordViewModel.swift in Sources */,
 				924546BE1ADCC2CB8515D91B /* GetConversationsUseCase.swift in Sources */,
 				BAF34EB5ACC551B194D67E54 /* GetDiscoverProfilesUseCase.swift in Sources */,
 				FE38283EB50E6C43585EED58 /* GetMatchesUseCase.swift in Sources */,
@@ -946,6 +960,7 @@
 				5DBA66D04FA1F20BF92895FC /* RegisterUseCase.swift in Sources */,
 				58174D302E5EA1D053D8DFD9 /* RegisterView.swift in Sources */,
 				93552BF51EF399C62BAC1DE9 /* RegisterViewModel.swift in Sources */,
+				FDCDF7CE26FEF1ABEC94012B /* ResetPasswordUseCase.swift in Sources */,
 				0392EFF619A291EC0FBD6AA4 /* SendMessageUseCase.swift in Sources */,
 				70406ACAFE670CFFD9E408DC /* SettingsView.swift in Sources */,
 				B1EC2A9551E3458E5E71752E /* SettingsViewModel.swift in Sources */,
@@ -972,6 +987,7 @@
 			files = (
 				4EF222E88316814C7C33F6E3 /* AuthRepositoryTests.swift in Sources */,
 				3E3E9A79D9228D2C27392669 /* DiscoverViewModelTests.swift in Sources */,
+				63D34601DE6FBFC0B3168DC8 /* ForgotPasswordViewModelTests.swift in Sources */,
 				145917D2E0445F6E6B808F61 /* LoginUseCaseTests.swift in Sources */,
 				515BB105C81F72124FA3330A /* LoginViewModelTests.swift in Sources */,
 				58123B55D0EF156BA0B84BD6 /* MockAuthRepository.swift in Sources */,
@@ -1167,7 +1183,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.vietmatch.app.tests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VietMatch.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VietMatch";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VM Staging.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VM Staging";
 			};
 			name = "Staging Debug";
 		};
@@ -1227,7 +1243,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.vietmatch.app.tests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VietMatch.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VietMatch";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VM Staging.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VM Staging";
 			};
 			name = "Staging Release";
 		};
@@ -1259,7 +1275,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.vietmatch.app.tests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VietMatch.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VietMatch";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VM Dev.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VM Dev";
 			};
 			name = "Dev Debug";
 		};
@@ -1275,7 +1291,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.vietmatch.app.tests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VietMatch.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VietMatch";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VM Dev.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VM Dev";
 			};
 			name = "Dev Release";
 		};

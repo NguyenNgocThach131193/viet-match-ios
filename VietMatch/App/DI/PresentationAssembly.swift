@@ -27,6 +27,14 @@ final class PresentationAssembly: Assembly {
             }
         }
 
+        container.register(ForgotPasswordViewModel.self) { resolver in
+            MainActor.assumeIsolated {
+                ForgotPasswordViewModel(
+                    resetPasswordUseCase: resolver.resolve(ResetPasswordUseCaseProtocol.self)!
+                )
+            }
+        }
+
         // MARK: - Onboarding ViewModels
 
         container.register(OnboardingViewModel.self) { resolver in

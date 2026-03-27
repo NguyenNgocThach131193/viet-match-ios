@@ -22,6 +22,12 @@ final class AuthCoordinator: Coordinator {
         path.append(AuthRoute.forgotPassword)
     }
 
+    func goBack() {
+        if !path.isEmpty {
+            path.removeLast()
+        }
+    }
+
     @ViewBuilder
     func destination(for route: AuthRoute) -> some View {
         switch route {
@@ -30,7 +36,7 @@ final class AuthCoordinator: Coordinator {
         case .register:
             registerView()
         case .forgotPassword:
-            Text("Quên mật khẩu")
+            forgotPasswordView()
         }
     }
 
@@ -42,6 +48,11 @@ final class AuthCoordinator: Coordinator {
     func registerView() -> some View {
         let viewModel = container.resolve(RegisterViewModel.self)!
         return RegisterView(viewModel: viewModel, coordinator: self)
+    }
+
+    func forgotPasswordView() -> some View {
+        let viewModel = container.resolve(ForgotPasswordViewModel.self)!
+        return ForgotPasswordView(viewModel: viewModel, coordinator: self)
     }
 }
 

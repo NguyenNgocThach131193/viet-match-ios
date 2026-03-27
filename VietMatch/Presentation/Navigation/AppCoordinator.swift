@@ -16,7 +16,7 @@ final class AppCoordinator: ObservableObject {
     }
 
     private func observeAuthState() {
-        let authRepo = container.resolve(AuthRepositoryProtocol.self)!
+        guard let authRepo = container.resolve(AuthRepositoryProtocol.self) else { return }
         authRepo.currentUser
             .receive(on: DispatchQueue.main)
             .sink { [weak self] user in

@@ -8,8 +8,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
-        FirebaseApp.configure()
-        setupNotifications(application)
+        if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil {
+            FirebaseApp.configure()
+            setupNotifications(application)
+        }
         return true
     }
 

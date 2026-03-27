@@ -7,6 +7,14 @@ options:
   generateEmptyDirectories: true
   groupSortPosition: top
 
+configs:
+  Dev Debug: debug
+  Dev Release: release
+  Staging Debug: debug
+  Staging Release: release
+  Production Debug: debug
+  Production Release: release
+
 settings:
   base:
     SWIFT_VERSION: "5.9"
@@ -43,14 +51,47 @@ targets:
         optional: true
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.vietmatch.app
-        PRODUCT_NAME: VietMatch
-        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         INFOPLIST_FILE: VietMatch/App/Info.plist
         CODE_SIGN_ENTITLEMENTS: VietMatch/App/VietMatch.entitlements
-        SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
         ENABLE_PREVIEWS: true
+      configs:
+        Dev Debug:
+          PRODUCT_BUNDLE_IDENTIFIER: com.vietmatch.app.dev
+          PRODUCT_NAME: VM Dev
+          ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG DEV
+          IPHONEOS_DEPLOYMENT_TARGET: "17.6"
+        Dev Release:
+          PRODUCT_BUNDLE_IDENTIFIER: com.vietmatch.app.dev
+          PRODUCT_NAME: VM Dev
+          ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEV
+          IPHONEOS_DEPLOYMENT_TARGET: "17.6"
+        Staging Debug:
+          PRODUCT_BUNDLE_IDENTIFIER: com.vietmatch.app.staging
+          PRODUCT_NAME: VM Staging
+          ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG STAGING
+          IPHONEOS_DEPLOYMENT_TARGET: "17.6"
+        Staging Release:
+          PRODUCT_BUNDLE_IDENTIFIER: com.vietmatch.app.staging
+          PRODUCT_NAME: VM Staging
+          ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: STAGING
+          IPHONEOS_DEPLOYMENT_TARGET: "17.6"
+        Production Debug:
+          PRODUCT_BUNDLE_IDENTIFIER: com.vietmatch.app
+          PRODUCT_NAME: VietMatch
+          ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG PRODUCTION
+          IPHONEOS_DEPLOYMENT_TARGET: "17.6"
+        Production Release:
+          PRODUCT_BUNDLE_IDENTIFIER: com.vietmatch.app
+          PRODUCT_NAME: VietMatch
+          ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: PRODUCTION
+          IPHONEOS_DEPLOYMENT_TARGET: "17.6"
     dependencies:
       - package: FirebaseSDK
         product: FirebaseAuth
@@ -82,8 +123,20 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.vietmatch.app.tests
-        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/VietMatch.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VietMatch"
         BUNDLE_LOADER: "$(TEST_HOST)"
+      configs:
+        Dev Debug:
+          TEST_HOST: "$(BUILT_PRODUCTS_DIR)/VM Dev.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VM Dev"
+        Dev Release:
+          TEST_HOST: "$(BUILT_PRODUCTS_DIR)/VM Dev.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VM Dev"
+        Staging Debug:
+          TEST_HOST: "$(BUILT_PRODUCTS_DIR)/VM Staging.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VM Staging"
+        Staging Release:
+          TEST_HOST: "$(BUILT_PRODUCTS_DIR)/VM Staging.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VM Staging"
+        Production Debug:
+          TEST_HOST: "$(BUILT_PRODUCTS_DIR)/VietMatch.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VietMatch"
+        Production Release:
+          TEST_HOST: "$(BUILT_PRODUCTS_DIR)/VietMatch.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VietMatch"
 
   VietMatchUITests:
     type: bundle.ui-testing
@@ -98,22 +151,62 @@ targets:
         TEST_TARGET_NAME: VietMatch
 
 schemes:
-  VietMatch:
+  VietMatch-Dev:
     build:
       targets:
         VietMatch: all
         VietMatchTests: [test]
         VietMatchUITests: [test]
     run:
-      config: Debug
+      config: Dev Debug
     test:
-      config: Debug
+      config: Dev Debug
       targets:
         - VietMatchTests
         - VietMatchUITests
     profile:
-      config: Release
+      config: Dev Release
     analyze:
-      config: Debug
+      config: Dev Debug
     archive:
-      config: Release
+      config: Dev Release
+
+  VietMatch-Staging:
+    build:
+      targets:
+        VietMatch: all
+        VietMatchTests: [test]
+        VietMatchUITests: [test]
+    run:
+      config: Staging Debug
+    test:
+      config: Staging Debug
+      targets:
+        - VietMatchTests
+        - VietMatchUITests
+    profile:
+      config: Staging Release
+    analyze:
+      config: Staging Debug
+    archive:
+      config: Staging Release
+
+  VietMatch-Production:
+    build:
+      targets:
+        VietMatch: all
+        VietMatchTests: [test]
+        VietMatchUITests: [test]
+    run:
+      config: Production Debug
+    test:
+      config: Production Debug
+      targets:
+        - VietMatchTests
+        - VietMatchUITests
+    profile:
+      config: Production Release
+    analyze:
+      config: Production Debug
+    archive:
+      config: Production Release

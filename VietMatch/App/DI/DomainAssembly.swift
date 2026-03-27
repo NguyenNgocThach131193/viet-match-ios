@@ -23,6 +23,12 @@ final class DomainAssembly: Assembly {
             )
         }
 
+        container.register(ResetPasswordUseCaseProtocol.self) { resolver in
+            ResetPasswordUseCase(
+                authRepository: resolver.resolve(AuthRepositoryProtocol.self)!
+            )
+        }
+
         // MARK: - Profile Use Cases
 
         container.register(GetProfileUseCaseProtocol.self) { resolver in
