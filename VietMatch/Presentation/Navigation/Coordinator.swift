@@ -2,7 +2,20 @@ import SwiftUI
 
 protocol Coordinator: ObservableObject {
     associatedtype ContentView: View
+    var path: NavigationPath { get set }
     func start() -> ContentView
+}
+
+extension Coordinator {
+    func pop() {
+        if !path.isEmpty {
+            path.removeLast()
+        }
+    }
+
+    func popToRoot() {
+        path = NavigationPath()
+    }
 }
 
 enum AppRoute: Hashable {

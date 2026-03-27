@@ -1,7 +1,7 @@
 import SwiftUI
 import Swinject
 
-final class DiscoverCoordinator: ObservableObject {
+final class DiscoverCoordinator: Coordinator {
     @Published var path = NavigationPath()
 
     private let container: Container
@@ -16,12 +16,6 @@ final class DiscoverCoordinator: ObservableObject {
 
     func showProfileDetail(profileId: String) {
         path.append(DiscoverRoute.profileDetail(profileId: profileId))
-    }
-
-    func pop() {
-        if !path.isEmpty {
-            path.removeLast()
-        }
     }
 
     @ViewBuilder

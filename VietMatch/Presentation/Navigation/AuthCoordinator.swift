@@ -1,7 +1,7 @@
 import SwiftUI
 import Swinject
 
-final class AuthCoordinator: ObservableObject {
+final class AuthCoordinator: Coordinator {
     @Published var path = NavigationPath()
 
     private let container: Container
@@ -20,12 +20,6 @@ final class AuthCoordinator: ObservableObject {
 
     func showForgotPassword() {
         path.append(AuthRoute.forgotPassword)
-    }
-
-    func pop() {
-        if !path.isEmpty {
-            path.removeLast()
-        }
     }
 
     @ViewBuilder

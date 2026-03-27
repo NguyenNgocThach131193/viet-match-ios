@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 /Users/thachnn5/Desktop/projects/viet-match-ios/.claude/skills/bmad-init/scripts/bmad_init.py load --project-root /Users/thachnn5/Desktop/projects/viet-match-ios --all)",
+      "Bash(python3 /Users/thachnn5/Desktop/projects/viet-match-ios/.claude/skills/bmad-init/scripts/bmad_init.py load --project-root /Users/thachnn5/Desktop/projects/viet-match-ios --module bmm)",
+      "Bash(python3 /Users/thachnn5/Desktop/projects/viet-match-ios/.claude/skills/bmad-init/scripts/bmad_init.py load --project-root /Users/thachnn5/Desktop/projects/viet-match-ios --module bmm --all)",
+      "Bash(xcodebuild -scheme VietMatch -destination 'platform=iOS Simulator,name=iPhone 16' -quiet build)",
+      "Bash(xcodebuild -scheme VietMatch -destination 'platform=iOS Simulator,name=iPhone SE \\(3rd generation\\)' -quiet build)",
+      "Bash(xcodebuild -scheme VietMatch -destination 'platform=iOS Simulator,id=7A844314-2DED-47C5-A5A4-434104A14FAC' -quiet build)",
+      "Bash(xcodebuild -scheme VietMatch -destination 'platform=iOS Simulator,id=7A844314-2DED-47C5-A5A4-434104A14FAC' build)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git filter-branch -f --env-filter ':*)",
+      "Bash(git checkout:*)",
+      "Bash(git pull:*)",
+      "Bash(git reset:*)",
+      "Bash(ls /Users/thachnn5/Desktop/projects/viet-match-ios/*.md)",
+      "Bash(find /Users/thachnn5/Desktop/projects/viet-match-ios -not -path ./.build/* -type f -name *.md)",
+      "Bash(find /Users/thachnn5/Desktop/projects/viet-match-ios/docs -type f -name *.md)"
+    ]
+  }
+}

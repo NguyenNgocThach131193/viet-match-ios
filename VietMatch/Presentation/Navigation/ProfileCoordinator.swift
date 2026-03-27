@@ -1,7 +1,7 @@
 import SwiftUI
 import Swinject
 
-final class ProfileCoordinator: ObservableObject {
+final class ProfileCoordinator: Coordinator {
     @Published var path = NavigationPath()
 
     private let container: Container
@@ -20,12 +20,6 @@ final class ProfileCoordinator: ObservableObject {
 
     func showSettings() {
         path.append(ProfileRoute.settings)
-    }
-
-    func pop() {
-        if !path.isEmpty {
-            path.removeLast()
-        }
     }
 
     @ViewBuilder

@@ -1,7 +1,7 @@
 import SwiftUI
 import Swinject
 
-final class ChatCoordinator: ObservableObject {
+final class ChatCoordinator: Coordinator {
     @Published var path = NavigationPath()
 
     private let container: Container
@@ -16,12 +16,6 @@ final class ChatCoordinator: ObservableObject {
 
     func showChat(matchId: String) {
         path.append(ChatRoute.chat(matchId: matchId))
-    }
-
-    func pop() {
-        if !path.isEmpty {
-            path.removeLast()
-        }
     }
 
     @ViewBuilder

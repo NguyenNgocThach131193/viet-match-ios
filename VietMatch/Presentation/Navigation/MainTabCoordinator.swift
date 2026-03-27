@@ -5,6 +5,9 @@ final class MainTabCoordinator: ObservableObject {
     @Published var selectedTab: Tab = .discover
 
     private let container: Container
+    private lazy var discoverCoordinator = DiscoverCoordinator(container: container)
+    private lazy var chatCoordinator = ChatCoordinator(container: container)
+    private lazy var profileCoordinator = ProfileCoordinator(container: container)
 
     enum Tab: Int, CaseIterable {
         case discover
@@ -40,8 +43,7 @@ final class MainTabCoordinator: ObservableObject {
     }
 
     func discoverView() -> some View {
-        let coordinator = DiscoverCoordinator(container: container)
-        return coordinator.start()
+        discoverCoordinator.start()
     }
 
     func matchesView() -> some View {
@@ -50,13 +52,11 @@ final class MainTabCoordinator: ObservableObject {
     }
 
     func chatView() -> some View {
-        let coordinator = ChatCoordinator(container: container)
-        return coordinator.start()
+        chatCoordinator.start()
     }
 
     func profileView() -> some View {
-        let coordinator = ProfileCoordinator(container: container)
-        return coordinator.start()
+        profileCoordinator.start()
     }
 }
 

@@ -8,6 +8,7 @@ final class AppCoordinator: ObservableObject {
 
     private let container: Container
     private var cancellables = Set<AnyCancellable>()
+    private lazy var authCoordinator = AuthCoordinator(container: container)
 
     init(container: Container) {
         self.container = container
@@ -41,8 +42,7 @@ final class AppCoordinator: ObservableObject {
     }
 
     func authView() -> some View {
-        let coordinator = AuthCoordinator(container: container)
-        return AuthCoordinatorView(coordinator: coordinator)
+        AuthCoordinatorView(coordinator: authCoordinator)
     }
 
     func onboardingView() -> some View {

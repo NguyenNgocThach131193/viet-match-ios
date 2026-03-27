@@ -169,7 +169,7 @@
 		4CFDC8BF84B547C796DC8D49 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		4E05F265547C3DFD9E46D9B5 /* DiscoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewModel.swift; sourceTree = "<group>"; };
 		4E6C5CD2F5D13EF52753CBE2 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
-		4E909BA7B8AD2A0C566BDEF3 /* VietMatch.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = VietMatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E909BA7B8AD2A0C566BDEF3 /* VM Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VM Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E9E6A218D6A3E70AA9CF3F6 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		4F1203AB8C6BF7FE5F772BC6 /* AuthRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryTests.swift; sourceTree = "<group>"; };
 		509F1D16097CDEA2C9B31B7D /* ProfileSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupView.swift; sourceTree = "<group>"; };
@@ -371,7 +371,7 @@
 		32D26BBCEA14E5D60287202A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4E909BA7B8AD2A0C566BDEF3 /* VietMatch.app */,
+				4E909BA7B8AD2A0C566BDEF3 /* VM Dev.app */,
 				5D62F4A75AA4074FDBCEA97D /* VietMatchTests.xctest */,
 				E2385CA862C3A6FE36520F0E /* VietMatchUITests.xctest */,
 			);
@@ -759,7 +759,7 @@
 				03F3A8986CA8F09FB7F7B384 /* Swinject */,
 			);
 			productName = VietMatch;
-			productReference = 4E909BA7B8AD2A0C566BDEF3 /* VietMatch.app */;
+			productReference = 4E909BA7B8AD2A0C566BDEF3 /* VM Dev.app */;
 			productType = "com.apple.product-type.application";
 		};
 		99FAB6A76C9FBEED0B7D56F2 /* VietMatchTests */ = {
@@ -1082,6 +1082,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = VietMatch/App/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1103,6 +1104,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = VietMatch/App/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1124,6 +1126,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = VietMatch/App/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1177,6 +1180,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = VietMatch/App/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1198,6 +1202,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = VietMatch/App/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1382,6 +1387,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = VietMatch/App/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
