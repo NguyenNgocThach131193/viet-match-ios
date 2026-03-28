@@ -53,6 +53,7 @@
 - [@StateObject vs @ObservedObject](./knowledge-stateobject-vs-observedobject.md) - So sánh, quy tắc chọn, áp dụng trong VietMatch
 - [Async/Await Deep Dive](./knowledge-async-await-deep-dive.md) - Swift async/await, Task, TaskGroup, Actor, @MainActor
 - [SwiftUI vs UIKit Lifecycle Deep Dive](./knowledge-swiftui-vs-uikit-lifecycle-deep-dive.md) - App lifecycle, View lifecycle, ScenePhase, .task, so sánh chi tiết
+- [Class vs Struct Deep Dive](./knowledge-class-vs-struct-deep-dive.md) - Value type vs Reference type, memory model, CoW, áp dụng trong VietMatch
 
 ---
 
