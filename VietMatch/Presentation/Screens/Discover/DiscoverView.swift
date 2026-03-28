@@ -32,7 +32,7 @@ struct DiscoverView: View {
         }
         .background(VietMatchColors.background.ignoresSafeArea())
         .task {
-            await viewModel.loadProfiles(userId: "current_user_id") // TODO: get from auth state
+            await viewModel.loadProfiles()
         }
         .alert("It's a Match!", isPresented: $viewModel.showMatchAlert) {
             Button("Nhắn tin") {}

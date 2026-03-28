@@ -50,7 +50,10 @@ final class PresentationAssembly: Assembly {
 
         container.register(DiscoverViewModel.self) { resolver in
             MainActor.assumeIsolated {
-                DiscoverViewModel(
+                let userDefaultsService = resolver.resolve(UserDefaultsServiceProtocol.self)!
+                let currentUserId: String = userDefaultsService.get(forKey: UserDefaultsKey.currentUserId) ?? ""
+                return DiscoverViewModel(
+                    currentUserId: currentUserId,
                     getDiscoverProfilesUseCase: resolver.resolve(GetDiscoverProfilesUseCaseProtocol.self)!,
                     swipeUseCase: resolver.resolve(SwipeUseCaseProtocol.self)!
                 )

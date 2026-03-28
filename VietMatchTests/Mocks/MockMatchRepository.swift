@@ -9,6 +9,7 @@ final class MockMatchRepository: MatchRepositoryProtocol {
 
     var swipeCallCount = 0
     var getMatchesCallCount = 0
+    var lastGetDiscoverProfilesUserId: String?
 
     func swipe(swiperId: String, swipedUserId: String, direction: SwipeDirection) async throws -> Match? {
         swipeCallCount += 1
@@ -21,7 +22,8 @@ final class MockMatchRepository: MatchRepositoryProtocol {
     }
 
     func getDiscoverProfiles(userId: String, limit: Int) async throws -> [Profile] {
-        try getDiscoverProfilesResult.get()
+        lastGetDiscoverProfilesUserId = userId
+        return try getDiscoverProfilesResult.get()
     }
 
     func observeMatches(userId: String) -> AnyPublisher<[Match], Error> {

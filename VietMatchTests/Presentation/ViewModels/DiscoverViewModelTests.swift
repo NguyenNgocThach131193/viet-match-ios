@@ -12,6 +12,7 @@ final class DiscoverViewModelTests: XCTestCase {
         let getProfilesUseCase = GetDiscoverProfilesUseCase(matchRepository: mockMatchRepo)
         let swipeUseCase = SwipeUseCase(matchRepository: mockMatchRepo)
         sut = DiscoverViewModel(
+            currentUserId: "test_user_id",
             getDiscoverProfilesUseCase: getProfilesUseCase,
             swipeUseCase: swipeUseCase
         )
@@ -30,7 +31,7 @@ final class DiscoverViewModelTests: XCTestCase {
         ]
         mockMatchRepo.getDiscoverProfilesResult = .success(profiles)
 
-        await sut.loadProfiles(userId: "me")
+        await sut.loadProfiles()
 
         XCTAssertEqual(sut.profiles.count, 2)
         XCTAssertEqual(sut.currentIndex, 0)
@@ -40,7 +41,7 @@ final class DiscoverViewModelTests: XCTestCase {
     func test_loadProfiles_failure_setsError() async {
         mockMatchRepo.getDiscoverProfilesResult = .failure(APIError.networkError)
 
-        await sut.loadProfiles(userId: "me")
+        await sut.loadProfiles()
 
         XCTAssertNotNil(sut.errorMessage)
     }
@@ -53,8 +54,17 @@ final class DiscoverViewModelTests: XCTestCase {
         let profiles = [Profile(id: "1", name: "User 1", age: 25)]
         mockMatchRepo.getDiscoverProfilesResult = .success(profiles)
 
-        await sut.loadProfiles(userId: "me")
+        await sut.loadProfiles()
 
         XCTAssertEqual(sut.currentProfile?.id, "1")
     }
+
+    func test_loadProfiles_usesInjectedUserId() async {
+        mockMatchRepo.getDiscoverProfilesResult = .success([])
+
+        await sut.loadProfiles()
+
+        XCTAssertEqual(mockMatchRepo.lastGetDiscoverProfilesUserId, "test_user_id")
+    }
+
 }

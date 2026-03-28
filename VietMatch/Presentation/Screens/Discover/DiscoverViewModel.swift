@@ -11,12 +11,14 @@ final class DiscoverViewModel: ObservableObject {
 
     private let getDiscoverProfilesUseCase: GetDiscoverProfilesUseCaseProtocol
     private let swipeUseCase: SwipeUseCaseProtocol
-    private var currentUserId: String = ""
+    private let currentUserId: String
 
     init(
+        currentUserId: String,
         getDiscoverProfilesUseCase: GetDiscoverProfilesUseCaseProtocol,
         swipeUseCase: SwipeUseCaseProtocol
     ) {
+        self.currentUserId = currentUserId
         self.getDiscoverProfilesUseCase = getDiscoverProfilesUseCase
         self.swipeUseCase = swipeUseCase
     }
@@ -30,12 +32,11 @@ final class DiscoverViewModel: ObservableObject {
         currentIndex < profiles.count
     }
 
-    func loadProfiles(userId: String) async {
-        currentUserId = userId
+    func loadProfiles() async {
         isLoading = true
         do {
             profiles = try await getDiscoverProfilesUseCase.execute(
-                userId: userId,
+                userId: currentUserId,
                 limit: Constants.App.defaultDiscoverLimit
             )
             currentIndex = 0

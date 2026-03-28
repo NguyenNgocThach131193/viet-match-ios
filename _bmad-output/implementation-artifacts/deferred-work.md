@@ -1,4 +1,11 @@
 
+## Story 1.6 - Fix Hardcoded currentUserId trong DiscoverView (2026-03-28)
+
+- **Empty string fallback khi chưa login**: `currentUserId ?? ""` trong PresentationAssembly sẽ tạo DiscoverViewModel với userId rỗng nếu UserDefaults chưa có giá trị. Request sẽ gửi với userId="" — cần auth-gating đảm bảo DiscoverView chỉ hiển thị sau login (consistent với ChatViewModel pattern).
+- **Social login không persist currentUserId** (duplicate từ 1.5): `AuthRepository.loginWithGoogle()` và `loginWithApple()` không save currentUserId. Affects DiscoverViewModel và ChatViewModel.
+- **Concurrent load bugs trong DiscoverViewModel**: `loadMoreProfiles()` có thể chạy concurrent khi swipe nhanh → duplicate profiles. `.task` re-fires khi view re-appears → double-reset của profiles/currentIndex. Cần debounce hoặc in-flight guard.
+- **ProfileDetailViewModel hardcode currentUserId: ""** (duplicate từ 1.2): Vẫn chưa fix, ngoài scope.
+
 ## Story 1.5 - Fix Hardcoded currentUserId Deferred Items (2026-03-28)
 
 - **Google/Apple login không persist currentUserId**: `AuthRepository.loginWithGoogle()` và `loginWithApple()` không gọi `userDefaultsService.set(user.id, forKey: UserDefaultsKey.currentUserId)`. User đăng nhập qua mạng xã hội sẽ có `currentUserId = ""` trong ChatViewModel. Cần fix trong `AuthRepository`.
