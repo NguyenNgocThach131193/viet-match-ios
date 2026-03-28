@@ -52,6 +52,7 @@
 - [ARC (Memory Management) Deep Dive](./knowledge-arc-deep-dive.md) - Reference counting, retain cycles, weak/unowned, phân tích VietMatch
 - [@StateObject vs @ObservedObject](./knowledge-stateobject-vs-observedobject.md) - So sánh, quy tắc chọn, áp dụng trong VietMatch
 - [Async/Await Deep Dive](./knowledge-async-await-deep-dive.md) - Swift async/await, Task, TaskGroup, Actor, @MainActor
+- [Class vs Struct Deep Dive](./knowledge-class-vs-struct-deep-dive.md) - Value type vs Reference type, memory model, CoW, áp dụng trong VietMatch
 
 ---
 
