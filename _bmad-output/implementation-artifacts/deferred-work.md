@@ -1,4 +1,11 @@
 
+## Story 1.5 - Fix Hardcoded currentUserId Deferred Items (2026-03-28)
+
+- **Google/Apple login không persist currentUserId**: `AuthRepository.loginWithGoogle()` và `loginWithApple()` không gọi `userDefaultsService.set(user.id, forKey: UserDefaultsKey.currentUserId)`. User đăng nhập qua mạng xã hội sẽ có `currentUserId = ""` trong ChatViewModel. Cần fix trong `AuthRepository`.
+- **ConversationsView hardcode "current_user_id"**: `ConversationsView.swift` vẫn còn `loadConversations(userId: "current_user_id")`. Cần story riêng để fix tương tự story này.
+- **ProfileDetailViewModel hardcode currentUserId: ""**: Đã được ghi nhận từ Story 1.2, vẫn chưa fix. Cần inject từ UserDefaultsService giống ChatViewModel.
+- **Force-unwrap pattern trong DI**: Toàn bộ `resolver.resolve(...)!` trong PresentationAssembly không có graceful error handling. Nên xem xét sử dụng precondition với message rõ ràng thay vì force-unwrap.
+
 ## Story 1.2 - ProfileDetailView Deferred Items (2026-03-28)
 
 - **currentUserId empty string in DI**: ProfileDetailViewModel receives `currentUserId: ""`. Project-wide issue — DiscoverView also hardcodes user ID. Needs proper auth session service injected into coordinators/VMs.

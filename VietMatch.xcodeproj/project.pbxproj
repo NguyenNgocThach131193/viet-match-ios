@@ -42,6 +42,7 @@
 		7BA90C51C3DB4B22AEB27AF8 /* ProfileDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD6A98AD7064518BD53F361 /* ProfileDetailViewModel.swift */; };
 		BE8BF22BDB5B4C9894164562 /* ProfileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6848AA61F5B144848EA18E60 /* ProfileDetailView.swift */; };
 		527CCDBEEF0343289606D02F /* ProfileDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF80ED1BB444744928996C2 /* ProfileDetailViewModelTests.swift */; };
+		57BF10860B0542369935AD77 /* ChatViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1FECB487E84A65BDF43448 /* ChatViewModelTests.swift */; };
 		40492DB9C38A14501E122754 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009F117320A35F212C992ABB /* AuthRepository.swift */; };
 		44F5AB8570C6CA076EFD62B3 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1218158F948293E38D9192B4 /* ProfileView.swift */; };
 		48F5BD0243E833961927489D /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC84C267E67DF1D19FA9AC5 /* AuthCoordinator.swift */; };
@@ -224,6 +225,7 @@
 		A5ACA5A1F33EB9EAC310B385 /* MockAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAuthRepository.swift; sourceTree = "<group>"; };
 		A8ECAF517D6C7BC58426168D /* DiscoverViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewModelTests.swift; sourceTree = "<group>"; };
 		3FF80ED1BB444744928996C2 /* ProfileDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailViewModelTests.swift; sourceTree = "<group>"; };
+		CE1FECB487E84A65BDF43448 /* ChatViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModelTests.swift; sourceTree = "<group>"; };
 		AB224C1898E122872A1A1B21 /* PhotoUploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoUploadView.swift; sourceTree = "<group>"; };
 		B1266D54EF022BA80C6D87C7 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		B2085E7F6A2342349E7837B3 /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
@@ -418,6 +420,7 @@
 			isa = PBXGroup;
 			children = (
 				A8ECAF517D6C7BC58426168D /* DiscoverViewModelTests.swift */,
+				CE1FECB487E84A65BDF43448 /* ChatViewModelTests.swift */,
 				3FF80ED1BB444744928996C2 /* ProfileDetailViewModelTests.swift */,
 				9F4DAA3861C3571430C77294 /* ForgotPasswordViewModelTests.swift */,
 				2D9B58D564E7F8BA6D69C850 /* LoginViewModelTests.swift */,
@@ -998,6 +1001,7 @@
 			files = (
 				4EF222E88316814C7C33F6E3 /* AuthRepositoryTests.swift in Sources */,
 				3E3E9A79D9228D2C27392669 /* DiscoverViewModelTests.swift in Sources */,
+				57BF10860B0542369935AD77 /* ChatViewModelTests.swift in Sources */,
 				527CCDBEEF0343289606D02F /* ProfileDetailViewModelTests.swift in Sources */,
 				63D34601DE6FBFC0B3168DC8 /* ForgotPasswordViewModelTests.swift in Sources */,
 				145917D2E0445F6E6B808F61 /* LoginUseCaseTests.swift in Sources */,

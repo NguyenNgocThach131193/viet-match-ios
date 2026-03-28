@@ -90,8 +90,11 @@ final class PresentationAssembly: Assembly {
 
         container.register(ChatViewModel.self) { (resolver, matchId: String) in
             MainActor.assumeIsolated {
-                ChatViewModel(
+                let userDefaultsService = resolver.resolve(UserDefaultsServiceProtocol.self)!
+                let currentUserId: String = userDefaultsService.get(forKey: UserDefaultsKey.currentUserId) ?? ""
+                return ChatViewModel(
                     matchId: matchId,
+                    currentUserId: currentUserId,
                     getMessagesUseCase: resolver.resolve(GetMessagesUseCaseProtocol.self)!,
                     sendMessageUseCase: resolver.resolve(SendMessageUseCaseProtocol.self)!
                 )

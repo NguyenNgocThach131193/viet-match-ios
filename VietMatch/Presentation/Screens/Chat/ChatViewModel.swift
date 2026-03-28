@@ -13,14 +13,16 @@ final class ChatViewModel: ObservableObject {
     private let getMessagesUseCase: GetMessagesUseCaseProtocol
     private let sendMessageUseCase: SendMessageUseCaseProtocol
     private var cancellables = Set<AnyCancellable>()
-    private var currentUserId = "current_user_id" // TODO: get from auth state
+    let currentUserId: String
 
     init(
         matchId: String,
+        currentUserId: String,
         getMessagesUseCase: GetMessagesUseCaseProtocol,
         sendMessageUseCase: SendMessageUseCaseProtocol
     ) {
         self.matchId = matchId
+        self.currentUserId = currentUserId
         self.getMessagesUseCase = getMessagesUseCase
         self.sendMessageUseCase = sendMessageUseCase
     }
