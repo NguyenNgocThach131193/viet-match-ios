@@ -1,4 +1,12 @@
 
+## Story 1.3 - Photo Grid Deferred Items (2026-03-28)
+
+- **Photo changes not auto-saved (EC-7)**: `addPhoto`/`removePhoto` update the in-memory `profile.photos` array but don't persist to Firestore until the user taps "Lưu thay đổi". If the user uploads a photo and then dismisses without saving, the photo file exists in Firebase Storage but has no Firestore record — orphaned file. Design decision required: either auto-save photos on upload, or add a discard-changes warning on dismiss.
+- **ProfileRepository.deletePhoto bypasses UseCase layer (BH-10)**: `ProfileViewModel.removePhoto` calls `profileRepository.deletePhoto` directly, while `addPhoto` goes through `UploadPhotoUseCaseProtocol`. Inconsistency. A `DeletePhotoUseCaseProtocol` should be introduced for symmetry.
+- **HEIC/WebP image fallback (EC-9)**: If `UIImage(data:)` succeeds but `jpegData` returns nil (rare color space edge case), the photo upload will fail with "Không thể xử lý ảnh này". Most HEIC images convert fine; if needed, add `pngData()` as secondary fallback.
+- **Empty currentUserId falls through (BH-6)**: Same pre-existing pattern as other VMs — `currentUserId ?? ""` means photo operations will target a phantom userId="" if UserDefaults is cleared. Covered by global auth-gating work.
+- **dismiss() called unconditionally in EditProfileView (EC-10)**: Pre-existing issue — view dismisses even on saveProfile() failure, swallowing the errorMessage. Needs a separate story to add error display + conditional dismiss.
+
 ## Story 1.4 - Google Sign-In Deferred Items (2026-03-28)
 
 - **REVERSED_CLIENT_ID chưa được cấu hình**: `Info.plist` chứa placeholder `REPLACE_WITH_REVERSED_CLIENT_ID`. Cần lấy `REVERSED_CLIENT_ID` từ `GoogleService-Info.plist` (Firebase Console) và thay vào trước khi test thực tế. File này bị gitignore nên không thể tự động hóa.

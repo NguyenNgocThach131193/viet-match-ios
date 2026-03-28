@@ -108,10 +108,15 @@ final class PresentationAssembly: Assembly {
 
         container.register(ProfileViewModel.self) { resolver in
             MainActor.assumeIsolated {
-                ProfileViewModel(
+                let userDefaultsService = resolver.resolve(UserDefaultsServiceProtocol.self)!
+                let currentUserId: String = userDefaultsService.get(forKey: UserDefaultsKey.currentUserId) ?? ""
+                return ProfileViewModel(
+                    currentUserId: currentUserId,
                     getProfileUseCase: resolver.resolve(GetProfileUseCaseProtocol.self)!,
                     updateProfileUseCase: resolver.resolve(UpdateProfileUseCaseProtocol.self)!,
-                    logoutUseCase: resolver.resolve(LogoutUseCaseProtocol.self)!
+                    logoutUseCase: resolver.resolve(LogoutUseCaseProtocol.self)!,
+                    uploadPhotoUseCase: resolver.resolve(UploadPhotoUseCaseProtocol.self)!,
+                    profileRepository: resolver.resolve(ProfileRepositoryProtocol.self)!
                 )
             }
         }

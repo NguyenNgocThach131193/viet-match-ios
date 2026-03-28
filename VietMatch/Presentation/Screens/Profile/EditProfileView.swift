@@ -12,7 +12,13 @@ struct EditProfileView: View {
                     .font(VietMatchTypography.headline)
                     .frame(maxWidth: .infinity, alignment: .leading)
 
-                // TODO: Photo grid with add/remove
+                PhotoGridView(
+                    photos: viewModel.profile?.photos ?? [],
+                    isUploadingPhoto: viewModel.isUploadingPhoto,
+                    isDeletingPhoto: viewModel.isDeletingPhoto,
+                    onAdd: { data in await viewModel.addPhoto(data: data) },
+                    onRemove: { url in await viewModel.removePhoto(url: url) }
+                )
 
                 // Edit fields
                 Group {

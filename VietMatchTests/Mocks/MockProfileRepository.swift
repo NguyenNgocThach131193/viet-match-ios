@@ -13,6 +13,8 @@ final class MockProfileRepository: ProfileRepositoryProtocol {
     var getProfileCallCount = 0
     var updateProfileCallCount = 0
     var uploadPhotoCallCount = 0
+    var deletePhotoCallCount = 0
+    var deletePhotoResult: Result<Void, Error> = .success(())
 
     func getProfile(userId: String) async throws -> Profile {
         getProfileCallCount += 1
@@ -29,7 +31,10 @@ final class MockProfileRepository: ProfileRepositoryProtocol {
         return try uploadPhotoResult.get()
     }
 
-    func deletePhoto(userId: String, photoURL: String) async throws {}
+    func deletePhoto(userId: String, photoURL: String) async throws {
+        deletePhotoCallCount += 1
+        try deletePhotoResult.get()
+    }
 
     func updateLocation(userId: String, location: Location) async throws {}
 }

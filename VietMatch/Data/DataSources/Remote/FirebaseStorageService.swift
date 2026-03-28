@@ -21,7 +21,12 @@ final class FirebaseStorageService: FirebaseStorageServiceProtocol {
     }
 
     func deleteImage(path: String) async throws {
-        let ref = storage.reference().child(path)
+        let ref: StorageReference
+        if path.hasPrefix("https://") || path.hasPrefix("gs://") {
+            ref = storage.reference(forURL: path)
+        } else {
+            ref = storage.reference().child(path)
+        }
         try await ref.delete()
     }
 

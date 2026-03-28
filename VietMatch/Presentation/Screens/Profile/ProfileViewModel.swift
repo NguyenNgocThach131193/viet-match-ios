@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 @MainActor
 final class ProfileViewModel: ObservableObject {
@@ -6,6 +7,8 @@ final class ProfileViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
     @Published var isEditing = false
+    @Published var isUploadingPhoto = false
+    @Published var isDeletingPhoto = false
 
     // Editable fields
     @Published var editName = ""
@@ -17,15 +20,24 @@ final class ProfileViewModel: ObservableObject {
     private let getProfileUseCase: GetProfileUseCaseProtocol
     private let updateProfileUseCase: UpdateProfileUseCaseProtocol
     private let logoutUseCase: LogoutUseCaseProtocol
+    private let uploadPhotoUseCase: UploadPhotoUseCaseProtocol
+    private let profileRepository: ProfileRepositoryProtocol
+    private let currentUserId: String
 
     init(
+        currentUserId: String,
         getProfileUseCase: GetProfileUseCaseProtocol,
         updateProfileUseCase: UpdateProfileUseCaseProtocol,
-        logoutUseCase: LogoutUseCaseProtocol
+        logoutUseCase: LogoutUseCaseProtocol,
+        uploadPhotoUseCase: UploadPhotoUseCaseProtocol,
+        profileRepository: ProfileRepositoryProtocol
     ) {
+        self.currentUserId = currentUserId
         self.getProfileUseCase = getProfileUseCase
         self.updateProfileUseCase = updateProfileUseCase
         self.logoutUseCase = logoutUseCase
+        self.uploadPhotoUseCase = uploadPhotoUseCase
+        self.profileRepository = profileRepository
     }
 
     func loadProfile(userId: String) async {
@@ -55,6 +67,39 @@ final class ProfileViewModel: ObservableObject {
             errorMessage = error.localizedDescription
         }
         isLoading = false
+    }
+
+    func addPhoto(data: Data) async {
+        guard !isUploadingPhoto, let profile, profile.photos.count < Constants.App.maxPhotos else { return }
+        isUploadingPhoto = true
+        defer { isUploadingPhoto = false }
+        do {
+            guard let image = UIImage(data: data),
+                  let compressedData = image.jpegData(compressionQuality: 0.8) else {
+                errorMessage = "Không thể xử lý ảnh này"
+                return
+            }
+            let url = try await uploadPhotoUseCase.execute(userId: currentUserId, imageData: compressedData)
+            self.profile?.photos.append(url)
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+
+    func removePhoto(url: String) async {
+        guard !isDeletingPhoto else { return }
+        guard let profile, profile.photos.count > 1 else {
+            errorMessage = "Phải có ít nhất 1 ảnh"
+            return
+        }
+        isDeletingPhoto = true
+        defer { isDeletingPhoto = false }
+        do {
+            try await profileRepository.deletePhoto(userId: currentUserId, photoURL: url)
+            self.profile?.photos.removeAll { $0 == url }
+        } catch {
+            errorMessage = error.localizedDescription
+        }
     }
 
     func logout() async {
