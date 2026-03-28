@@ -52,6 +52,7 @@
 - [ARC (Memory Management) Deep Dive](./knowledge-arc-deep-dive.md) - Reference counting, retain cycles, weak/unowned, phân tích VietMatch
 - [@StateObject vs @ObservedObject](./knowledge-stateobject-vs-observedobject.md) - So sánh, quy tắc chọn, áp dụng trong VietMatch
 - [Async/Await Deep Dive](./knowledge-async-await-deep-dive.md) - Swift async/await, Task, TaskGroup, Actor, @MainActor
+- [SwiftUI vs UIKit Lifecycle Deep Dive](./knowledge-swiftui-vs-uikit-lifecycle-deep-dive.md) - App lifecycle, View lifecycle, ScenePhase, .task, so sánh chi tiết
 
 ---
 
