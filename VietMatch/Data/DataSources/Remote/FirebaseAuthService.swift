@@ -1,6 +1,8 @@
 import Foundation
 import Combine
 import FirebaseAuth
+import GoogleSignIn
+import UIKit
 
 protocol FirebaseAuthServiceProtocol {
     var currentUserPublisher: AnyPublisher<FirebaseAuth.User?, Never> { get }
@@ -51,8 +53,30 @@ final class FirebaseAuthService: FirebaseAuthServiceProtocol {
     }
 
     func signInWithGoogle() async throws -> FirebaseAuth.User {
-        // TODO: Implement Google Sign-In with GoogleSignIn SDK
-        throw AuthError.unknown("Google Sign-In chưa được cấu hình")
+        let rootViewController = try await MainActor.run {
+            guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                  let rootVC = scene.keyWindow?.rootViewController else {
+                throw AuthError.unknown("Không tìm được rootViewController")
+            }
+            return rootVC
+        }
+
+        let signInResult: GIDSignInResult
+        do {
+            signInResult = try await GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController)
+        } catch let error as NSError where error.domain == kGIDSignInErrorDomain
+                    && GIDSignInError.Code(rawValue: error.code) == .canceled {
+            throw AuthError.cancelled
+        }
+
+        guard let idToken = signInResult.user.idToken?.tokenString else {
+            throw AuthError.unknown("Google idToken không hợp lệ")
+        }
+        let accessToken = signInResult.user.accessToken.tokenString
+
+        let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
+        let result = try await auth.signIn(with: credential)
+        return result.user
     }
 
     func signInWithApple(idToken: String, nonce: String) async throws -> FirebaseAuth.User {

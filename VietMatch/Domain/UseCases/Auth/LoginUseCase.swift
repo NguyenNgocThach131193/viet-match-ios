@@ -34,6 +34,7 @@ enum AuthError: LocalizedError, Equatable {
     case userNotFound
     case emailAlreadyInUse
     case weakPassword
+    case cancelled
     case unknown(String)
 
     var errorDescription: String? {
@@ -42,6 +43,7 @@ enum AuthError: LocalizedError, Equatable {
         case .userNotFound: return "Không tìm thấy tài khoản"
         case .emailAlreadyInUse: return "Email đã được sử dụng"
         case .weakPassword: return "Mật khẩu quá yếu"
+        case .cancelled: return nil
         case .unknown(let message): return message
         }
     }

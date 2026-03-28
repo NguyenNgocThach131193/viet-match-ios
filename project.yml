@@ -27,6 +27,9 @@ packages:
   FirebaseSDK:
     url: https://github.com/firebase/firebase-ios-sdk
     from: "11.0.0"
+  GoogleSignIn:
+    url: https://github.com/google/GoogleSignIn-iOS
+    from: "7.0.0"
   Alamofire:
     url: https://github.com/Alamofire/Alamofire
     from: "5.9.0"
@@ -103,6 +106,10 @@ targets:
         product: FirebaseMessaging
       - package: FirebaseSDK
         product: FirebaseAnalytics
+      - package: GoogleSignIn
+        product: GoogleSignIn
+      - package: GoogleSignIn
+        product: GoogleSignInSwift
       - package: Alamofire
       - package: Kingfisher
       - package: Swinject

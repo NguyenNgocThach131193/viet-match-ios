@@ -1,4 +1,10 @@
 
+## Story 1.4 - Google Sign-In Deferred Items (2026-03-28)
+
+- **REVERSED_CLIENT_ID chưa được cấu hình**: `Info.plist` chứa placeholder `REPLACE_WITH_REVERSED_CLIENT_ID`. Cần lấy `REVERSED_CLIENT_ID` từ `GoogleService-Info.plist` (Firebase Console) và thay vào trước khi test thực tế. File này bị gitignore nên không thể tự động hóa.
+- **Concurrent Google Sign-In taps**: LoginView không disable Google button khi `isLoading = true` (chỉ disable email/password login button). Rapid taps có thể launch multiple GIDSignIn sessions. Low priority — GIDSignIn tự quản lý singleton state.
+- **Network error differentiation**: Firebase network errors propagate với Firebase's own `localizedDescription`. Không có `AuthError.networkError` case riêng. Functional nhưng error message sẽ là tiếng Anh từ Firebase SDK.
+
 ## Story 1.6 - Fix Hardcoded currentUserId trong DiscoverView (2026-03-28)
 
 - **Empty string fallback khi chưa login**: `currentUserId ?? ""` trong PresentationAssembly sẽ tạo DiscoverViewModel với userId rỗng nếu UserDefaults chưa có giá trị. Request sẽ gửi với userId="" — cần auth-gating đảm bảo DiscoverView chỉ hiển thị sau login (consistent với ChatViewModel pattern).

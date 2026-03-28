@@ -43,6 +43,8 @@ final class LoginViewModel: ObservableObject {
         isLoading = true
         do {
             _ = try await loginUseCase.executeWithGoogle()
+        } catch AuthError.cancelled {
+            // User dismissed the sign-in sheet — no error shown
         } catch {
             showErrorMessage(error.localizedDescription)
         }
