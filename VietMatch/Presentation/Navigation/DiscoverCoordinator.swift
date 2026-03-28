@@ -23,14 +23,19 @@ final class DiscoverCoordinator: Coordinator {
         switch route {
         case .discover:
             discoverView()
-        case .profileDetail:
-            Text("Profile Detail") // TODO: Implement ProfileDetailView
+        case .profileDetail(let profileId):
+            profileDetailView(profileId: profileId)
         }
     }
 
     func discoverView() -> some View {
         let viewModel = container.resolve(DiscoverViewModel.self)!
         return DiscoverView(viewModel: viewModel, coordinator: self)
+    }
+
+    func profileDetailView(profileId: String) -> some View {
+        let viewModel = container.resolve(ProfileDetailViewModel.self, argument: profileId)!
+        return ProfileDetailView(viewModel: viewModel, coordinator: self)
     }
 }
 

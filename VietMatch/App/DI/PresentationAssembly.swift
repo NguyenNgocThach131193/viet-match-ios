@@ -57,6 +57,17 @@ final class PresentationAssembly: Assembly {
             }
         }
 
+        container.register(ProfileDetailViewModel.self) { (resolver, profileId: String) in
+            MainActor.assumeIsolated {
+                ProfileDetailViewModel(
+                    profileId: profileId,
+                    currentUserId: "",
+                    getProfileUseCase: resolver.resolve(GetProfileUseCaseProtocol.self)!,
+                    swipeUseCase: resolver.resolve(SwipeUseCaseProtocol.self)!
+                )
+            }
+        }
+
         // MARK: - Matches ViewModels
 
         container.register(MatchesViewModel.self) { resolver in
