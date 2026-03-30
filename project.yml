@@ -14,6 +14,7 @@ configs:
   Staging Release: release
   Production Debug: debug
   Production Release: release
+  UIPreview Debug: debug
 
 settings:
   base:
@@ -95,6 +96,12 @@ targets:
           ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
           SWIFT_ACTIVE_COMPILATION_CONDITIONS: PRODUCTION
           IPHONEOS_DEPLOYMENT_TARGET: "17.6"
+        UIPreview Debug:
+          PRODUCT_BUNDLE_IDENTIFIER: com.vietmatch.app.uipreview
+          PRODUCT_NAME: VM Preview
+          ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG UIPREVIEW
+          IPHONEOS_DEPLOYMENT_TARGET: "17.6"
     dependencies:
       - package: FirebaseSDK
         product: FirebaseAuth
@@ -144,6 +151,8 @@ targets:
           TEST_HOST: "$(BUILT_PRODUCTS_DIR)/VietMatch.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VietMatch"
         Production Release:
           TEST_HOST: "$(BUILT_PRODUCTS_DIR)/VietMatch.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VietMatch"
+        UIPreview Debug:
+          TEST_HOST: "$(BUILT_PRODUCTS_DIR)/VM Preview.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VM Preview"
 
   VietMatchUITests:
     type: bundle.ui-testing
@@ -217,3 +226,19 @@ schemes:
       config: Production Debug
     archive:
       config: Production Release
+
+  VietMatch-UIPreview:
+    build:
+      targets:
+        VietMatch: all
+    run:
+      config: UIPreview Debug
+    test:
+      config: UIPreview Debug
+      targets: []
+    profile:
+      config: UIPreview Debug
+    analyze:
+      config: UIPreview Debug
+    archive:
+      config: UIPreview Debug

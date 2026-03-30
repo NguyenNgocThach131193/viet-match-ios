@@ -9,10 +9,14 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
+        #if UIPREVIEW
+        AppLogger.general.info("Running in UI Preview mode — Firebase disabled")
+        #else
         if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil {
             FirebaseApp.configure()
             setupNotifications(application)
         }
+        #endif
         return true
     }
 

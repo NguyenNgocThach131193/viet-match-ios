@@ -21,7 +21,19 @@
       "Bash(find /Users/thachnn5/Desktop/projects/viet-match-ios -type f -name *.pbxproj -o -name *.xcconfig -o -name *.xcscheme)",
       "Bash(grep -r \"environment\\\\|Environment\\\\|CONFIG\\\\|config\\\\|Build\\\\|build\\\\|staging\\\\|production\\\\|development\" /Users/thachnn5/Desktop/projects/viet-match-ios/VietMatch --include=*.swift -l)",
       "Bash(grep -l \"environment\\\\|Environment\\\\|config\\\\|Config\\\\|staging\\\\|production\\\\|development\\\\|dev\" /Users/thachnn5/Desktop/projects/viet-match-ios/docs/*.md -i)",
-      "Bash(find /Users/thachnn5/Desktop/projects/viet-match-ios -maxdepth 5 -name *.xcconfig -type f)"
+      "Bash(find /Users/thachnn5/Desktop/projects/viet-match-ios -maxdepth 5 -name *.xcconfig -type f)",
+      "Bash(git fetch:*)",
+      "Bash(xcodegen generate:*)",
+      "Bash(brew --prefix xcodegen)",
+      "Read(//opt/homebrew/**)",
+      "Read(//usr/local/**)",
+      "Bash(/opt/homebrew/opt/xcodegen/bin/xcodegen generate:*)",
+      "Bash(export PATH=\"$HOME/.mint/bin:$PATH:/opt/homebrew/bin:/usr/local/bin\")",
+      "Bash(mint run:*)",
+      "Bash(brew install:*)",
+      "Bash(xcodebuild build:*)",
+      "Bash(xcodebuild test:*)",
+      "Bash(git stash:*)"
     ]
   }
 }

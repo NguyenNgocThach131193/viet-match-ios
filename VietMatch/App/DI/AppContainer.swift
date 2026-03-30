@@ -12,11 +12,14 @@ final class AppContainer {
     }
 
     private func registerAssemblies() {
-        let assemblies: [Assembly] = [
-            DataAssembly(),
-            DomainAssembly(),
-            PresentationAssembly()
-        ]
+        var assemblies: [Assembly] = []
+        #if UIPREVIEW
+        assemblies.append(MockDataAssembly())
+        #else
+        assemblies.append(DataAssembly())
+        #endif
+        assemblies.append(DomainAssembly())
+        assemblies.append(PresentationAssembly())
         let assembler = Assembler(assemblies, container: container)
         _ = assembler // retain assembler
     }
