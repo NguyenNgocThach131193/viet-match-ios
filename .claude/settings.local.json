@@ -17,7 +17,11 @@
       "Bash(git reset:*)",
       "Bash(ls /Users/thachnn5/Desktop/projects/viet-match-ios/*.md)",
       "Bash(find /Users/thachnn5/Desktop/projects/viet-match-ios -not -path ./.build/* -type f -name *.md)",
-      "Bash(find /Users/thachnn5/Desktop/projects/viet-match-ios/docs -type f -name *.md)"
+      "Bash(find /Users/thachnn5/Desktop/projects/viet-match-ios/docs -type f -name *.md)",
+      "Bash(find /Users/thachnn5/Desktop/projects/viet-match-ios -type f -name *.pbxproj -o -name *.xcconfig -o -name *.xcscheme)",
+      "Bash(grep -r \"environment\\\\|Environment\\\\|CONFIG\\\\|config\\\\|Build\\\\|build\\\\|staging\\\\|production\\\\|development\" /Users/thachnn5/Desktop/projects/viet-match-ios/VietMatch --include=*.swift -l)",
+      "Bash(grep -l \"environment\\\\|Environment\\\\|config\\\\|Config\\\\|staging\\\\|production\\\\|development\\\\|dev\" /Users/thachnn5/Desktop/projects/viet-match-ios/docs/*.md -i)",
+      "Bash(find /Users/thachnn5/Desktop/projects/viet-match-ios -maxdepth 5 -name *.xcconfig -type f)"
     ]
   }
 }
