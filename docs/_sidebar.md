@@ -1,22 +1,22 @@
-- **Trang Chu**
-  - [Gioi thieu](/)
+- **Trang Chủ**
+  - [Giới thiệu](/)
 
-- **Du An**
-  - [Tong Quan Du An](project-overview.md)
-  - [Kien Truc](architecture.md)
-  - [Cau Truc Thu Muc](source-tree-analysis.md)
+- **Dự Án**
+  - [Tổng Quan Dự Án](project-overview.md)
+  - [Kiến Trúc](architecture.md)
+  - [Cấu Trúc Thư Mục](source-tree-analysis.md)
   - [Component Inventory](component-inventory.md)
   - [Data Models](data-models.md)
 
-- **Huong Dan**
-  - [Huong Dan Phat Trien](development-guide.md)
+- **Hướng Dẫn**
+  - [Hướng Dẫn Phát Triển](development-guide.md)
   - [Firebase Setup](firebase-setup.md)
   - [GitFlow & Branching](gitflow.md)
 
 - **Deep Dive**
   - [Navigation Deep Dive](navigation-deep-dive.md)
 
-- **Kien Thuc**
+- **Kiến Thức**
   - [MVVM-C Deep Dive](knowledge-mvvm-c-deep-dive.md)
   - [SOLID Deep Dive](knowledge-solid-deep-dive.md)
   - [DI & DIP Deep Dive](knowledge-di-and-dip-deep-dive.md)
