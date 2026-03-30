@@ -1,6 +1,6 @@
-# VietMatch - Tổng Quan Dự Án
+# Tổng Quan Dự Án
 
-> Ngày tạo: 2026-03-26 | Scan Level: Deep | Loại: Mobile (iOS Native)
+> Thông tin tổng quan về dự án VietMatch — tech stack, tính năng, kiến trúc
 
 ---
 

@@ -1,6 +1,6 @@
-# Class vs Struct trong Swift — Deep Dive
+# Class vs Struct Deep Dive
 
-> Ngày tạo: 2026-03-28 | Áp dụng: VietMatch iOS
+> Value type vs Reference type, memory model, CoW và áp dụng trong VietMatch
 
 ---
 

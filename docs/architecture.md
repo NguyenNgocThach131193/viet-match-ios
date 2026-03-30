@@ -1,6 +1,6 @@
-# VietMatch - Tài Liệu Kiến Trúc
+# Kiến Trúc Hệ Thống
 
-> Ngày tạo: 2026-03-26 | Scan Level: Deep | Loại: Mobile (iOS Native)
+> Clean Architecture + MVVM-C, Dependency Injection, Navigation, Domain/Data/Presentation layers
 
 ---
 

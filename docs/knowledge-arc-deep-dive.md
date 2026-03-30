@@ -1,4 +1,4 @@
-# Kiến Thức: ARC (Automatic Reference Counting) Deep Dive
+# ARC (Automatic Reference Counting) Deep Dive
 
 > Quản lý bộ nhớ trong Swift — từ lý thuyết đến thực hành VietMatch
 

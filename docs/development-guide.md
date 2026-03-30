@@ -1,6 +1,6 @@
-# VietMatch - Hướng Dẫn Phát Triển
+# Hướng Dẫn Phát Triển
 
-> Ngày tạo: 2026-03-26 | Scan Level: Deep
+> Cài đặt, build, testing, conventions và troubleshooting cho developer
 
 ---
 

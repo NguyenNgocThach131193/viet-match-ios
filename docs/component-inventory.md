@@ -1,6 +1,6 @@
-# VietMatch - Component Inventory
+# Component Inventory
 
-> Ngày tạo: 2026-03-26 | Scan Level: Deep
+> Danh sách components, design tokens và screens trong VietMatch
 
 ---
 

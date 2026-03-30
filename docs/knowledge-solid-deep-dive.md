@@ -1,4 +1,4 @@
-# Kiến Thức: SOLID Principles Deep Dive
+# SOLID Principles Deep Dive
 
 > 5 nguyên tắc thiết kế hướng đối tượng — giải thích qua code thực tế VietMatch
 

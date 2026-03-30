@@ -1,8 +1,10 @@
-# Hướng dẫn cài đặt và cấu hình Firebase cho VietMatch
+# Firebase Setup
 
-Dự án VietMatch sử dụng hệ sinh thái Firebase làm backend (baas) để xử lý xác thực, cơ sở dữ liệu thời gian thực, lưu trữ file và thông báo đẩy. Dưới đây là các bước quy chuẩn để cấu hình Firebase từ Console và tích hợp SDK vào mã nguồn iOS.
+> Hướng dẫn cài đặt và cấu hình Firebase — Console, SDK, Security Rules
 
 ---
+
+Dự án VietMatch sử dụng hệ sinh thái Firebase làm backend (baas) để xử lý xác thực, cơ sở dữ liệu thời gian thực, lưu trữ file và thông báo đẩy. Dưới đây là các bước quy chuẩn để cấu hình Firebase từ Console và tích hợp SDK vào mã nguồn iOS.
 
 ## 1. Tạo và thiết lập Project trên Firebase Console
 

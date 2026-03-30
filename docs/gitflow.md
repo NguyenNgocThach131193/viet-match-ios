@@ -1,4 +1,8 @@
-# VietMatch - GitFlow & Branching Strategy
+# GitFlow & Branching Strategy
+
+> Quy trình quản lý mã nguồn, branching strategy và Conventional Commits
+
+---
 
 Tài liệu này quy định quy trình quản lý mã nguồn (GitFlow) và các tiêu chuẩn commit cho dự án VietMatch, nhằm đảm bảo tiến độ triển khai mượt mà, hạn chế xung đột code và dễ dàng quản lý các phiên bản (releases) trên App Store.
 

@@ -1,6 +1,6 @@
-# VietMatch - Data Models
+# Data Models
 
-> Ngày tạo: 2026-03-26 | Scan Level: Deep
+> Domain entities, DTOs, Firestore schema và mapping strategy
 
 ---
 

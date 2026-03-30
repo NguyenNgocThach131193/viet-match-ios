@@ -1,4 +1,8 @@
-# Swift Async/Await - Học 80% trong 30 phút
+# Async/Await Deep Dive
+
+> Swift async/await, Task, TaskGroup, Actor và @MainActor
+
+---
 
 ## 1. VẤN ĐỀ CŨ: Callback Hell
 

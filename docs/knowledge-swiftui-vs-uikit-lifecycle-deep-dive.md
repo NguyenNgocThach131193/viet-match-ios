@@ -1,6 +1,6 @@
-# Lifecycle SwiftUI App vs UIKit App — Deep Dive
+# SwiftUI vs UIKit Lifecycle Deep Dive
 
-> Ngày tạo: 2026-03-28 | Áp dụng: VietMatch iOS
+> So sánh App lifecycle, View lifecycle, ScenePhase và các pattern thực tế
 
 ---
 

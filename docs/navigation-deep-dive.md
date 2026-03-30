@@ -1,6 +1,6 @@
-# VietMatch - Navigation Deep Dive
+# Navigation Deep Dive
 
-> Ngày tạo: 2026-03-26 | Phân tích chi tiết Coordinator Pattern
+> Phân tích chi tiết Coordinator Pattern, NavigationStack và luồng điều hướng
 
 ---
 

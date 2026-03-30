@@ -1,6 +1,6 @@
-# VietMatch - Phân Tích Cấu Trúc Thư Mục
+# Phân Tích Cấu Trúc Thư Mục
 
-> Ngày tạo: 2026-03-26 | Scan Level: Deep | Loại: Mobile (iOS Native)
+> Cấu trúc thư mục chi tiết của dự án VietMatch iOS
 
 ---
 

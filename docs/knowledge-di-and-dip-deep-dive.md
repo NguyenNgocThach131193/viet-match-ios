@@ -1,4 +1,4 @@
-# Kiến Thức: Dependency Injection & Dependency Inversion Deep Dive
+# Dependency Injection & Dependency Inversion Deep Dive
 
 > Hai khái niệm tên giống nhau nhưng khác hoàn toàn — giải thích qua VietMatch
 

@@ -1,4 +1,4 @@
-# Kiến Thức: MVVM-C Deep Dive
+# MVVM-C Deep Dive
 
 > Giải thích chi tiết pattern MVVM-C trong VietMatch, từ lý thuyết đến thực hành
 

@@ -1,4 +1,4 @@
-# Kiến Thức: @StateObject vs @ObservedObject
+# @StateObject vs @ObservedObject
 
 > Tài liệu tham khảo cho SwiftUI state management trong VietMatch
 
