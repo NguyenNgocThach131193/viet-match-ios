@@ -54,6 +54,7 @@
 - [Async/Await Deep Dive](./knowledge-async-await-deep-dive.md) - Swift async/await, Task, TaskGroup, Actor, @MainActor
 - [SwiftUI vs UIKit Lifecycle Deep Dive](./knowledge-swiftui-vs-uikit-lifecycle-deep-dive.md) - App lifecycle, View lifecycle, ScenePhase, .task, so sánh chi tiết
 - [Class vs Struct Deep Dive](./knowledge-class-vs-struct-deep-dive.md) - Value type vs Reference type, memory model, CoW, áp dụng trong VietMatch
+- [Access Levels Deep Dive](./knowledge-access-levels-deep-dive.md) - private, fileprivate, internal, public, open — quy tắc chọn, private(set), áp dụng trong VietMatch
 
 ---
 
