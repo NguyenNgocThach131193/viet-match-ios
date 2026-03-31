@@ -25,3 +25,5 @@
   - [Async/Await Deep Dive](knowledge-async-await-deep-dive.md)
   - [SwiftUI vs UIKit Lifecycle](knowledge-swiftui-vs-uikit-lifecycle-deep-dive.md)
   - [Class vs Struct Deep Dive](knowledge-class-vs-struct-deep-dive.md)
+  - [Access Levels Deep Dive](knowledge-access-levels-deep-dive.md)
+  - [Race Condition Deep Dive](knowledge-race-condition-deep-dive.md)
