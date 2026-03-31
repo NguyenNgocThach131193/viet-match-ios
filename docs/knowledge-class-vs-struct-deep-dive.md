@@ -1,6 +1,6 @@
 # Class vs Struct Deep Dive
 
-> Value type vs Reference type, memory model, CoW và áp dụng trong VietMatch
+> Value type vs Reference type, memory model, CoW, performance, Sendable và áp dụng trong VietMatch
 
 ---
 
@@ -78,7 +78,116 @@ STACK (struct)                    HEAP (class)
 
 ---
 
-## 4. Mutating — Quy Tắc Của Struct
+## 4. Khi Nào Struct Lưu Trên Heap? (Hiểu Lầm Phổ Biến)
+
+Nhiều người nghĩ struct **luôn** nằm trên Stack. Thực tế Swift compiler quyết định dựa trên ngữ cảnh:
+
+```
+Struct nằm trên STACK khi:          Struct bị đẩy lên HEAP khi:
+✅ Biến local trong function         ❌ Bị capture bởi escaping closure
+✅ Parameter truyền vào function     ❌ Lưu trong protocol existential
+✅ Kích thước nhỏ, lifetime rõ       ❌ Lưu trong Any / AnyObject
+                                     ❌ Struct quá lớn (compiler tự chuyển)
+```
+
+```swift
+// Ví dụ: Struct bị đẩy lên Heap
+
+// 1. Escaping closure capture
+func fetchProfiles(completion: @escaping (ProfileState) -> Void) {
+    var state = ProfileState()  // ← struct này bị capture
+    DispatchQueue.global().async {
+        state.isLoading = true  // ← compiler phải đưa lên heap
+        completion(state)       //   vì lifetime vượt quá function scope
+    }
+}
+
+// 2. Protocol existential (existential container)
+protocol Displayable {
+    var title: String { get }
+}
+
+struct LargeProfile: Displayable {
+    var title: String
+    var photos: [String]  // 8+ bytes tổng → vượt existential buffer
+}
+
+let item: Displayable = LargeProfile(title: "Nam", photos: [])
+// ↑ LargeProfile > 3 words → heap allocation cho existential container
+
+// 3. Tối ưu: dùng `some` hoặc `any` thay vì bare protocol
+func display(_ item: some Displayable) {  // ← KHÔNG heap allocation
+    print(item.title)                     //   compiler biết exact type
+}
+```
+
+**Bài học cho VietMatch:** Khi truyền Entity struct qua `@escaping` closure (ví dụ completion handler từ Repository), struct vẫn có thể bị heap-allocated. Nhưng điều này **không ảnh hưởng đến value semantics** — bạn vẫn được copy safety.
+
+---
+
+## 5. Struct Chứa Class Property — Bẫy Mixed Semantics
+
+Khi struct chứa property kiểu class, value semantics **bị phá vỡ một phần**:
+
+```swift
+// ⚠️ BẪY: Struct chứa reference type
+class ImageCache {
+    var images: [String: UIImage] = [:]
+}
+
+struct UserProfile {
+    var name: String
+    var cache: ImageCache  // ← Reference type bên trong value type!
+}
+
+var profileA = UserProfile(name: "Nam", cache: ImageCache())
+profileA.cache.images["avatar"] = someImage
+
+var profileB = profileA           // ← Copy struct, NHƯNG...
+profileB.cache.images["avatar"] = otherImage
+
+// profileA.cache === profileB.cache → true! 😱
+// Cả hai share cùng ImageCache object
+// profileA.cache.images["avatar"] cũng bị thay đổi!
+```
+
+```
+profileA (Stack)              profileB (Stack)
+┌──────────────────┐          ┌──────────────────┐
+│ name: "Nam" ✅   │          │ name: "Nam" ✅   │
+│ cache: ──────────┼────┐     │ cache: ──────────┼────┐
+└──────────────────┘    │     └──────────────────┘    │
+                        ▼                              │
+                   ┌─────────────────┐                 │
+                   │ ImageCache (Heap)│ ◄───────────────┘
+                   │ images: [...]   │   ← SHARED! ⚠️
+                   └─────────────────┘
+```
+
+**Giải pháp:** Đảm bảo struct chỉ chứa value types, hoặc implement custom copy:
+
+```swift
+struct UserProfile {
+    var name: String
+    private var _cache: ImageCache
+
+    // Custom getter tạo deep copy khi cần
+    var cache: ImageCache {
+        mutating get {
+            if !isKnownUniquelyReferenced(&_cache) {
+                _cache = _cache.copy()  // Deep copy
+            }
+            return _cache
+        }
+    }
+}
+```
+
+**Trong VietMatch:** Entities như `Profile`, `Match` chỉ chứa primitive types và collections (đều là value type) → an toàn. Nhưng nếu tương lai thêm class property, cần nhớ bẫy này.
+
+---
+
+## 6. Mutating — Quy Tắc Của Struct
 
 Struct là **immutable by default**. Muốn thay đổi property bên trong method phải dùng `mutating`:
 
@@ -110,7 +219,7 @@ state2.nextStep() // ✅ OK
 
 ---
 
-## 5. Kế Thừa — Chỉ Class Có
+## 7. Kế Thừa — Chỉ Class Có
 
 ```swift
 // Class: kế thừa được
@@ -140,7 +249,7 @@ struct AuthFlow: Coordinator {
 
 ---
 
-## 6. Identity — Chỉ Class Có `===`
+## 8. Identity — Chỉ Class Có `===`
 
 ```swift
 class UserSession {
@@ -166,7 +275,7 @@ struct Profile: Equatable {
 
 ---
 
-## 7. ARC & Retain Cycle — Chỉ Class Gặp
+## 9. ARC & Retain Cycle — Chỉ Class Gặp
 
 ```swift
 // ⚠️ Retain cycle — memory leak
@@ -194,7 +303,7 @@ class DiscoverViewModel {
 
 ---
 
-## 8. Thread Safety
+## 10. Thread Safety
 
 ```swift
 // STRUCT — Thread safe hơn
@@ -223,7 +332,7 @@ actor MessageCache {
 
 ---
 
-## 9. Copy-on-Write (CoW) — Tối Ưu Ẩn Của Struct
+## 11. Copy-on-Write (CoW) — Tối Ưu Ẩn Của Struct
 
 Swift không copy struct ngay lập tức khi gán — chỉ copy **khi có sự thay đổi**:
 
@@ -243,7 +352,89 @@ photos2.append(someImage)  // ← LÚC NÀY mới copy thật sự
 
 ---
 
-## 10. Áp Dụng Trong VietMatch
+## 12. Performance — So Sánh Thực Tế
+
+```
+Thao tác             struct              class
+─────────────────────────────────────────────────────
+Allocation           ~1 ns (stack)       ~25-50 ns (heap + ARC)
+Deallocation         ~0 ns (auto)        ~25 ns (ARC decrement)
+Copy (nhỏ ≤3 words)  ~1 ns (memcpy)     ~5 ns (retain count++)
+Copy (lớn)           Deferred (CoW)      ~5 ns (chỉ copy ref)
+Method dispatch      Static (inline)     Dynamic (vtable lookup)
+```
+
+```swift
+// Ví dụ: 1 triệu lần tạo + hủy
+// Struct: ~15ms (stack allocation, no ARC)
+// Class:  ~120ms (heap allocation + ARC overhead)
+
+// Nhưng thực tế quan trọng hơn micro-benchmark:
+// - Profile list 100 items → chênh lệch không đáng kể
+// - Chọn đúng type (struct/class) vì SEMANTICS, không vì performance
+// - Performance chỉ là bonus khi semantics đã đúng
+```
+
+**Khi nào performance thực sự quan trọng:**
+- Struct lớn (>4 properties phức tạp) + copy thường xuyên + KHÔNG trigger CoW → cân nhắc
+- Vòng lặp tight loop xử lý hàng nghìn items → struct nhanh hơn rõ rệt
+- Phần lớn app code (UI, networking) → sự khác biệt **không đáng kể**
+
+---
+
+## 13. Sendable & Swift Concurrency
+
+Swift 6 yêu cầu data truyền giữa các concurrency domain phải conform `Sendable`:
+
+```swift
+// STRUCT — Tự động Sendable nếu mọi property đều Sendable ✅
+struct Profile: Sendable {  // Compiler tự verify
+    let id: String          // String: Sendable ✅
+    var name: String        // String: Sendable ✅
+    var age: Int            // Int: Sendable ✅
+}
+
+// CLASS — Phải đáp ứng điều kiện nghiêm ngặt hơn ⚠️
+// Cách 1: final class + immutable
+final class AppConfig: Sendable {
+    let apiBaseURL: String    // ✅ let only
+    let appVersion: String    // ✅ let only
+    // var mutableProp: Int   // ❌ Compile error nếu có var
+}
+
+// Cách 2: Actor (thay thế class khi cần mutability + thread safety)
+actor MatchService {
+    private var pendingMatches: [Match] = []
+
+    func addMatch(_ match: Match) {
+        pendingMatches.append(match)  // Thread-safe by design
+    }
+}
+
+// Cách 3: @MainActor class (VietMatch ViewModels)
+@MainActor
+final class DiscoverViewModel: ObservableObject {
+    @Published var profiles: [Profile] = []  // OK — chỉ access trên main thread
+}
+```
+
+```
+Sendable conformance:
+┌──────────────────────────────────────────────────┐
+│ struct (all Sendable props) → ✅ Tự động         │
+│ enum (all Sendable cases)  → ✅ Tự động          │
+│ final class (let only)     → ✅ Nhưng hạn chế    │
+│ class (var props)          → ❌ Không thể         │
+│ actor                      → ✅ By design         │
+│ @MainActor class           → ✅ Isolated          │
+└──────────────────────────────────────────────────┘
+```
+
+**Trong VietMatch:** Entity structs tự động `Sendable` — truyền giữa background thread (Firebase) và main thread (UI) an toàn. ViewModels dùng `@MainActor` để isolate.
+
+---
+
+## 14. Áp Dụng Trong VietMatch
 
 ### Entities → `struct` ✅
 
@@ -306,7 +497,7 @@ struct ProfileDTO: Codable {  // ← Chỉ cần parse JSON, không cần identi
 
 ---
 
-## 11. Quy Tắc Chọn
+## 15. Quy Tắc Chọn
 
 ```
 Dùng STRUCT khi:                    Dùng CLASS khi:
@@ -317,5 +508,41 @@ Dùng STRUCT khi:                    Dùng CLASS khi:
 ✅ Thread safety là ưu tiên         ✅ Cần deinit / lifecycle
 ✅ Không cần share identity         ✅ Cần share reference giữa nhiều nơi
 ```
+
+### Flowchart Quyết Định
+
+```mermaid
+flowchart TD
+    A[Tạo type mới] --> B{Cần kế thừa?}
+    B -- Có --> C[CLASS]
+    B -- Không --> D{Cần ObservableObject\nhoặc lifecycle deinit?}
+    D -- Có --> C
+    D -- Không --> E{Cần share identity\ngiữa nhiều nơi?}
+    E -- Có --> C
+    E -- Không --> F{Cần Objective-C\ninterop?}
+    F -- Có --> C
+    F -- Không --> G[STRUCT ✅ Default]
+
+    C --> H{Cần thread safety\nvới mutable state?}
+    H -- Có --> I{State isolated\ntrên 1 thread?}
+    I -- Có --> J[@MainActor class]
+    I -- Không --> K[Actor]
+    H -- Không --> L[Regular class]
+
+    style G fill:#2d6a2d,color:#fff
+    style C fill:#8b4513,color:#fff
+```
+
+### Tổng Kết Nhanh Theo Layer (VietMatch)
+
+| Layer | Type | Lý do |
+|-------|------|-------|
+| Entity (`Profile`, `Match`) | `struct` | Value semantics, Sendable, thread-safe |
+| DTO (`ProfileDTO`) | `struct` | Codable, chỉ cần parse data |
+| ViewModel | `class` (`@MainActor`) | ObservableObject, lifecycle, UI binding |
+| Service/Repository | `class` | Singleton, giữ connection/state |
+| Coordinator | `class` | Navigation state, kế thừa |
+| State (local) | `struct` | Immutable snapshot, CoW |
+| Actor (cache, queue) | `actor` | Thread-safe mutable shared state |
 
 **Nguyên tắc của Apple:** *"Use structures by default"* — chỉ dùng class khi thực sự cần reference semantics.
