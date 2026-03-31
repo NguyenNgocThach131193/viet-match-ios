@@ -62,43 +62,50 @@ targets:
       configs:
         Dev Debug:
           PRODUCT_BUNDLE_IDENTIFIER: com.vietmatch.app.dev
-          PRODUCT_NAME: VM Dev
+          PRODUCT_NAME: VietMatch
+          BUNDLE_DISPLAY_NAME: VietMatch Dev
           ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
           SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG DEV
           IPHONEOS_DEPLOYMENT_TARGET: "17.6"
         Dev Release:
           PRODUCT_BUNDLE_IDENTIFIER: com.vietmatch.app.dev
-          PRODUCT_NAME: VM Dev
+          PRODUCT_NAME: VietMatch
+          BUNDLE_DISPLAY_NAME: VietMatch Dev
           ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
           SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEV
           IPHONEOS_DEPLOYMENT_TARGET: "17.6"
         Staging Debug:
           PRODUCT_BUNDLE_IDENTIFIER: com.vietmatch.app.staging
-          PRODUCT_NAME: VM Staging
+          PRODUCT_NAME: VietMatch
+          BUNDLE_DISPLAY_NAME: VietMatch Staging
           ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
           SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG STAGING
           IPHONEOS_DEPLOYMENT_TARGET: "17.6"
         Staging Release:
           PRODUCT_BUNDLE_IDENTIFIER: com.vietmatch.app.staging
-          PRODUCT_NAME: VM Staging
+          PRODUCT_NAME: VietMatch
+          BUNDLE_DISPLAY_NAME: VietMatch Staging
           ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
           SWIFT_ACTIVE_COMPILATION_CONDITIONS: STAGING
           IPHONEOS_DEPLOYMENT_TARGET: "17.6"
         Production Debug:
           PRODUCT_BUNDLE_IDENTIFIER: com.vietmatch.app
           PRODUCT_NAME: VietMatch
+          BUNDLE_DISPLAY_NAME: VietMatch
           ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
           SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG PRODUCTION
           IPHONEOS_DEPLOYMENT_TARGET: "17.6"
         Production Release:
           PRODUCT_BUNDLE_IDENTIFIER: com.vietmatch.app
           PRODUCT_NAME: VietMatch
+          BUNDLE_DISPLAY_NAME: VietMatch
           ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
           SWIFT_ACTIVE_COMPILATION_CONDITIONS: PRODUCTION
           IPHONEOS_DEPLOYMENT_TARGET: "17.6"
         UIPreview Debug:
           PRODUCT_BUNDLE_IDENTIFIER: com.vietmatch.app.uipreview
-          PRODUCT_NAME: VM Preview
+          PRODUCT_NAME: VietMatch
+          BUNDLE_DISPLAY_NAME: VietMatch Preview
           ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
           SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG UIPREVIEW
           IPHONEOS_DEPLOYMENT_TARGET: "17.6"
@@ -138,21 +145,22 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.vietmatch.app.tests
         BUNDLE_LOADER: "$(TEST_HOST)"
+        IPHONEOS_DEPLOYMENT_TARGET: "17.6"
       configs:
         Dev Debug:
-          TEST_HOST: "$(BUILT_PRODUCTS_DIR)/VM Dev.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VM Dev"
+          TEST_HOST: "$(BUILT_PRODUCTS_DIR)/VietMatch.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VietMatch"
         Dev Release:
-          TEST_HOST: "$(BUILT_PRODUCTS_DIR)/VM Dev.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VM Dev"
+          TEST_HOST: "$(BUILT_PRODUCTS_DIR)/VietMatch.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VietMatch"
         Staging Debug:
-          TEST_HOST: "$(BUILT_PRODUCTS_DIR)/VM Staging.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VM Staging"
+          TEST_HOST: "$(BUILT_PRODUCTS_DIR)/VietMatch.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VietMatch"
         Staging Release:
-          TEST_HOST: "$(BUILT_PRODUCTS_DIR)/VM Staging.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VM Staging"
+          TEST_HOST: "$(BUILT_PRODUCTS_DIR)/VietMatch.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VietMatch"
         Production Debug:
           TEST_HOST: "$(BUILT_PRODUCTS_DIR)/VietMatch.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VietMatch"
         Production Release:
           TEST_HOST: "$(BUILT_PRODUCTS_DIR)/VietMatch.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VietMatch"
         UIPreview Debug:
-          TEST_HOST: "$(BUILT_PRODUCTS_DIR)/VM Preview.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VM Preview"
+          TEST_HOST: "$(BUILT_PRODUCTS_DIR)/VietMatch.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VietMatch"
 
   VietMatchUITests:
     type: bundle.ui-testing
@@ -165,6 +173,7 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.vietmatch.app.uitests
         TEST_TARGET_NAME: VietMatch
+        IPHONEOS_DEPLOYMENT_TARGET: "17.6"
 
 schemes:
   VietMatch-Dev:
