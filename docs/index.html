@@ -33,7 +33,10 @@
 </head>
 <body>
   <div id="app"></div>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <script>
+    mermaid.initialize({ startOnLoad: false, theme: 'default' });
+
     window.$docsify = {
       name: 'VietMatch iOS',
       repo: '',
@@ -47,6 +50,20 @@
       auto2top: true,
       coverpage: true,
       notFoundPage: true,
+      plugins: [
+        function(hook) {
+          hook.doneEach(function() {
+            document.querySelectorAll('code.lang-mermaid').forEach(function(code) {
+              var pre = code.parentElement;
+              var div = document.createElement('div');
+              div.className = 'mermaid';
+              div.textContent = code.textContent;
+              pre.parentElement.replaceChild(div, pre);
+            });
+            mermaid.run();
+          });
+        }
+      ]
     }
   </script>
   <!-- Docsify core -->
@@ -57,9 +74,5 @@
   <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-yaml.min.js"></script>
-  <!-- Mermaid -->
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docsify-mermaid@1.1.0/dist/docsify-mermaid.js"></script>
-  <script>mermaid.initialize({ startOnLoad: false });</script>
 </body>
 </html>
