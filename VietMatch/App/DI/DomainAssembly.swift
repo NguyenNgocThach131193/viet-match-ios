@@ -49,6 +49,12 @@ final class DomainAssembly: Assembly {
             )
         }
 
+        container.register(DeletePhotoUseCaseProtocol.self) { resolver in
+            DeletePhotoUseCase(
+                profileRepository: resolver.resolve(ProfileRepositoryProtocol.self)!
+            )
+        }
+
         // MARK: - Matching Use Cases
 
         container.register(SwipeUseCaseProtocol.self) { resolver in

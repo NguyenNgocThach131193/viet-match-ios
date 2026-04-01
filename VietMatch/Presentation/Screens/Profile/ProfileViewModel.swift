@@ -21,7 +21,7 @@ final class ProfileViewModel: ObservableObject {
     private let updateProfileUseCase: UpdateProfileUseCaseProtocol
     private let logoutUseCase: LogoutUseCaseProtocol
     private let uploadPhotoUseCase: UploadPhotoUseCaseProtocol
-    private let profileRepository: ProfileRepositoryProtocol
+    private let deletePhotoUseCase: DeletePhotoUseCaseProtocol
     private let currentUserId: String
 
     init(
@@ -30,14 +30,14 @@ final class ProfileViewModel: ObservableObject {
         updateProfileUseCase: UpdateProfileUseCaseProtocol,
         logoutUseCase: LogoutUseCaseProtocol,
         uploadPhotoUseCase: UploadPhotoUseCaseProtocol,
-        profileRepository: ProfileRepositoryProtocol
+        deletePhotoUseCase: DeletePhotoUseCaseProtocol
     ) {
         self.currentUserId = currentUserId
         self.getProfileUseCase = getProfileUseCase
         self.updateProfileUseCase = updateProfileUseCase
         self.logoutUseCase = logoutUseCase
         self.uploadPhotoUseCase = uploadPhotoUseCase
-        self.profileRepository = profileRepository
+        self.deletePhotoUseCase = deletePhotoUseCase
     }
 
     func loadProfile() async {
@@ -95,7 +95,7 @@ final class ProfileViewModel: ObservableObject {
         isDeletingPhoto = true
         defer { isDeletingPhoto = false }
         do {
-            try await profileRepository.deletePhoto(userId: currentUserId, photoURL: url)
+            try await deletePhotoUseCase.execute(userId: currentUserId, photoURL: url)
             self.profile?.photos.removeAll { $0 == url }
         } catch {
             errorMessage = error.localizedDescription

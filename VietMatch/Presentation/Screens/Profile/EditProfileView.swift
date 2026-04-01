@@ -31,8 +31,11 @@ struct EditProfileView: View {
 
                 Button {
                     Task {
+                        viewModel.errorMessage = nil
                         await viewModel.saveProfile()
-                        dismiss()
+                        if viewModel.errorMessage == nil {
+                            dismiss()
+                        }
                     }
                 } label: {
                     Group {
@@ -52,6 +55,14 @@ struct EditProfileView: View {
         .background(VietMatchColors.background.ignoresSafeArea())
         .navigationTitle("Chỉnh sửa hồ sơ")
         .navigationBarTitleDisplayMode(.inline)
+        .alert("Lỗi", isPresented: Binding(
+            get: { viewModel.errorMessage != nil },
+            set: { if !$0 { viewModel.errorMessage = nil } }
+        )) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(viewModel.errorMessage ?? "")
+        }
     }
 
     private func editField(title: String, text: Binding<String>, isMultiline: Bool = false) -> some View {

@@ -124,7 +124,7 @@ final class PresentationAssembly: Assembly {
                     updateProfileUseCase: resolver.resolve(UpdateProfileUseCaseProtocol.self)!,
                     logoutUseCase: resolver.resolve(LogoutUseCaseProtocol.self)!,
                     uploadPhotoUseCase: resolver.resolve(UploadPhotoUseCaseProtocol.self)!,
-                    profileRepository: resolver.resolve(ProfileRepositoryProtocol.self)!
+                    deletePhotoUseCase: resolver.resolve(DeletePhotoUseCaseProtocol.self)!
                 )
             }
         }

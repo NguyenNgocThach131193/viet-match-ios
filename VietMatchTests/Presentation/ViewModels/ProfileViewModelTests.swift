@@ -5,6 +5,7 @@ import XCTest
 final class ProfileViewModelTests: XCTestCase {
     var sut: ProfileViewModel!
     var mockProfileRepo: MockProfileRepository!
+    var mockDeletePhotoUseCase: MockDeletePhotoUseCase!
 
     // A minimal valid 1x1 red JPEG for tests that need real image data
     private var validImageData: Data {
@@ -19,6 +20,7 @@ final class ProfileViewModelTests: XCTestCase {
     override func setUp() {
         super.setUp()
         mockProfileRepo = MockProfileRepository()
+        mockDeletePhotoUseCase = MockDeletePhotoUseCase()
         let getProfileUseCase = GetProfileUseCase(profileRepository: mockProfileRepo)
         let updateProfileUseCase = UpdateProfileUseCase(profileRepository: mockProfileRepo)
         let uploadPhotoUseCase = UploadPhotoUseCase(profileRepository: mockProfileRepo)
@@ -29,7 +31,7 @@ final class ProfileViewModelTests: XCTestCase {
             updateProfileUseCase: updateProfileUseCase,
             logoutUseCase: logoutUseCase,
             uploadPhotoUseCase: uploadPhotoUseCase,
-            profileRepository: mockProfileRepo
+            deletePhotoUseCase: mockDeletePhotoUseCase
         )
         sut.profile = Profile(id: "user_1", name: "Test", age: 25, bio: "Bio",
                                photos: ["https://example.com/photo1.jpg"])
@@ -38,6 +40,7 @@ final class ProfileViewModelTests: XCTestCase {
     override func tearDown() {
         sut = nil
         mockProfileRepo = nil
+        mockDeletePhotoUseCase = nil
         super.tearDown()
     }
 
@@ -110,7 +113,9 @@ final class ProfileViewModelTests: XCTestCase {
 
         XCTAssertEqual(sut.profile?.photos.count, 1)
         XCTAssertEqual(sut.profile?.photos.first, "https://example.com/photo2.jpg")
-        XCTAssertEqual(mockProfileRepo.deletePhotoCallCount, 1)
+        XCTAssertEqual(mockDeletePhotoUseCase.executeCallCount, 1)
+        XCTAssertEqual(mockDeletePhotoUseCase.lastUserId, "user_1")
+        XCTAssertEqual(mockDeletePhotoUseCase.lastPhotoURL, "https://example.com/photo1.jpg")
     }
 
     func test_removePhoto_whenOnlyOnePhoto_doesNotRemove() async {
@@ -119,13 +124,13 @@ final class ProfileViewModelTests: XCTestCase {
         await sut.removePhoto(url: "https://example.com/photo1.jpg")
 
         XCTAssertEqual(sut.profile?.photos.count, 1)
-        XCTAssertEqual(mockProfileRepo.deletePhotoCallCount, 0)
+        XCTAssertEqual(mockDeletePhotoUseCase.executeCallCount, 0)
         XCTAssertNotNil(sut.errorMessage)
     }
 
     func test_removePhoto_failure_setsErrorMessage() async {
         sut.profile?.photos = ["https://example.com/photo1.jpg", "https://example.com/photo2.jpg"]
-        mockProfileRepo.deletePhotoResult = .failure(NSError(domain: "test", code: 1, userInfo: [NSLocalizedDescriptionKey: "Delete failed"]))
+        mockDeletePhotoUseCase.executeResult = .failure(NSError(domain: "test", code: 1, userInfo: [NSLocalizedDescriptionKey: "Delete failed"]))
 
         await sut.removePhoto(url: "https://example.com/photo1.jpg")
 
