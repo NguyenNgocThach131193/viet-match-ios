@@ -48,7 +48,8 @@
       "Bash(xcodebuild -project VietMatch.xcodeproj -list)",
       "Bash(xcodebuild -project VietMatch.xcodeproj -scheme VietMatch-Dev -destination 'platform=iOS Simulator,name=iPhone 16' build)",
       "Bash(xcodebuild -project VietMatch.xcodeproj -scheme VietMatchTests -destination 'platform=iOS Simulator,id=B1257BC7-4B66-44B2-8E91-95AD986D579D' test)",
-      "Read(//dev/**)"
+      "Read(//dev/**)",
+      "Bash(brew upgrade:*)"
     ]
   }
 }
