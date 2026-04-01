@@ -1,6 +1,6 @@
 # Story 1.9: Photo Save Flow — Consistent Photo Lifecycle va Conditional Dismiss
 
-Status: review
+Status: done
 
 ## Story
 
@@ -51,7 +51,7 @@ so that **khong co orphaned files, va toi thay duoc loi neu save that bai thay v
 
 ### Review Findings
 
-- [ ] [Review][Patch] Tests khong verify captured arguments (userId, photoURL) truyen vao MockDeletePhotoUseCase [ProfileViewModelTests.swift] — Cac removePhoto tests chi assert executeCallCount, khong verify lastUserId va lastPhotoURL. Co the pass sai userId/photoURL ma test van xanh.
+- [x] [Review][Patch] Tests khong verify captured arguments (userId, photoURL) truyen vao MockDeletePhotoUseCase [ProfileViewModelTests.swift] — FIXED: them XCTAssertEqual cho lastUserId va lastPhotoURL
 - [x] [Review][Defer] Force-unwrap trong DI container registration — pre-existing pattern across tat ca Assembly files, khong phai do story nay
 - [x] [Review][Defer] Race giua photo operations (add/remove) va saveProfile() — PHOTO-1/EC-7, da duoc ghi nhan la deferred work rieng
 - [x] [Review][Defer] errorMessage == nil la success signal fragile — can thay doi saveProfile() return type, vuot scope story nay
