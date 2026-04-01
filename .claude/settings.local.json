@@ -41,7 +41,8 @@
       "Bash(grep -l \"test\" /Users/thachnn5/Desktop/projects/viet-match-ios/VietMatch.xcodeproj/xcshareddata/xcschemes/*.xcscheme)",
       "Bash(grep -h \"^import\" /Users/thachnn5/Desktop/projects/viet-match-ios/VietMatchTests/**/*.swift)",
       "Bash(grep -h \"^import\" /Users/thachnn5/Desktop/projects/viet-match-ios/VietMatchUITests/*.swift)",
-      "Bash(find /Users/thachnn5/Desktop/projects/viet-match-ios/docs -name *test* -o -name *ci* -o -name *ci*)"
+      "Bash(find /Users/thachnn5/Desktop/projects/viet-match-ios/docs -name *test* -o -name *ci* -o -name *ci*)",
+      "Bash(xcodebuild -list)"
     ]
   }
 }

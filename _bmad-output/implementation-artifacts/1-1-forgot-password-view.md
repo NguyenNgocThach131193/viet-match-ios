@@ -1,6 +1,6 @@
 # Story 1.1: Implement ForgotPasswordView
 
-Status: review
+Status: done
 
 ## Story
 
@@ -43,7 +43,7 @@ so that **toi co the truy cap lai tai khoan cua minh**.
 
 ### Review Findings
 
-- [ ] [Review][Patch] Double-tap gui concurrent reset requests — them `guard !isLoading` o dau `resetPassword()` [ForgotPasswordViewModel.swift:23]
+- [x] [Review][Patch] Double-tap gui concurrent reset requests — them `guard !isLoading` o dau `resetPassword()` [ForgotPasswordViewModel.swift:23]
 - [x] [Review][Defer] `observeAuthState` silent fail khi container rong — deferred, pre-existing pattern
 - [x] [Review][Defer] Force-unwrap trong DI registrations & coordinator views — deferred, pre-existing pattern toan project
 - [x] [Review][Defer] `MainActor.assumeIsolated` trong Swinject DI closure — deferred, pre-existing pattern
@@ -92,6 +92,7 @@ Claude Opus 4.6
 
 ### Change Log
 - 2026-03-27: Implement Story 1.1 - ForgotPasswordView complete
+- 2026-04-01: Patch review finding - them guard !isLoading chong double-tap, them unit test
 
 ### File List
 - VietMatch/Domain/UseCases/Auth/ResetPasswordUseCase.swift (NEW)

@@ -68,6 +68,8 @@ context: []
 
 **[Patch 2 — 2026-03-28]** Triggering finding: `scene.windows.first` deprecated iOS 15+, fragile on multi-window. Amended: replaced with `scene.keyWindow` in FirebaseAuthService.signInWithGoogle(). Bad state avoided: sign-in sheet presented on wrong window. KEEP: safe optional binding pattern unchanged.
 
+**[Patch 3 — 2026-04-01]** Review finding: `loginWithGoogle()` và `login()` trong LoginViewModel thiếu `guard !isLoading` — double-tap có thể gửi concurrent requests. Amended: thêm `guard !isLoading else { return }` ở đầu cả hai methods. 35/35 tests pass.
+
 ## Design Notes
 
 **rootViewController helper:** Không có UIApplication extension sẵn có. Trong `signInWithGoogle()`, lấy rootViewController qua:
