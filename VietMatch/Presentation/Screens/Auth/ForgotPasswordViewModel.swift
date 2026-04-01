@@ -21,6 +21,8 @@ final class ForgotPasswordViewModel: ObservableObject {
     }
 
     func resetPassword() async {
+        guard !isLoading else { return }
+
         guard !email.trimmed.isEmpty else {
             showErrorMessage("Vui lòng nhập email")
             return

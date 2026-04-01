@@ -20,6 +20,7 @@ final class LoginViewModel: ObservableObject {
     }
 
     func login() async {
+        guard !isLoading else { return }
         guard isFormValid else {
             showErrorMessage("Vui lòng kiểm tra email và mật khẩu")
             return
@@ -40,6 +41,7 @@ final class LoginViewModel: ObservableObject {
     }
 
     func loginWithGoogle() async {
+        guard !isLoading else { return }
         isLoading = true
         do {
             _ = try await loginUseCase.executeWithGoogle()

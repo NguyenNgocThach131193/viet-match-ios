@@ -108,6 +108,15 @@ final class ForgotPasswordViewModelTests: XCTestCase {
         XCTAssertEqual(mockAuthRepo.resetPasswordCallCount, 1)
     }
 
+    func test_resetPassword_whileLoading_isIgnored() async {
+        sut.email = "test@test.com"
+        sut.isLoading = true
+
+        await sut.resetPassword()
+
+        XCTAssertEqual(mockAuthRepo.resetPasswordCallCount, 0)
+    }
+
     func test_resetPassword_networkError_showsError() async {
         sut.email = "test@test.com"
         mockAuthRepo.resetPasswordError = AuthError.unknown("Lỗi kết nối mạng")
