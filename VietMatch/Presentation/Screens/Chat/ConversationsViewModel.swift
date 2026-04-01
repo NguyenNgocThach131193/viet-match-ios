@@ -7,25 +7,27 @@ final class ConversationsViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
 
+    let currentUserId: String
     private let getConversationsUseCase: GetConversationsUseCaseProtocol
     private var cancellables = Set<AnyCancellable>()
 
-    init(getConversationsUseCase: GetConversationsUseCaseProtocol) {
+    init(currentUserId: String, getConversationsUseCase: GetConversationsUseCaseProtocol) {
+        self.currentUserId = currentUserId
         self.getConversationsUseCase = getConversationsUseCase
     }
 
-    func loadConversations(userId: String) async {
+    func loadConversations() async {
         isLoading = true
         do {
-            conversations = try await getConversationsUseCase.execute(userId: userId)
+            conversations = try await getConversationsUseCase.execute(userId: currentUserId)
         } catch {
             errorMessage = error.localizedDescription
         }
         isLoading = false
     }
 
-    func observeConversations(userId: String) {
-        getConversationsUseCase.observe(userId: userId)
+    func observeConversations() {
+        getConversationsUseCase.observe(userId: currentUserId)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 if case .failure(let error) = completion {

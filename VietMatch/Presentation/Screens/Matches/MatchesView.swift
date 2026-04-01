@@ -29,7 +29,7 @@ struct MatchesView: View {
                 }
             }
             .task {
-                await viewModel.loadMatches(userId: "current_user_id")
+                await viewModel.loadMatches()
             }
         }
     }

@@ -3,6 +3,16 @@ import XCTest
 
 final class AuthRepositoryTests: XCTestCase {
 
+    // MARK: - AuthRepository Social Login Persist Note
+    //
+    // loginWithGoogle/loginWithApple now persist currentUserId (Story 1.7).
+    // Direct unit tests are not possible because FirebaseAuth.User cannot be instantiated
+    // without Firebase test infrastructure. The persist logic is identical to login()/register()
+    // (AuthRepository.swift lines 43, 60) — same `userDefaultsService.set(user.id, ...)` call.
+    // Verification: code review + integration testing.
+
+    // MARK: - DTO Mapping Tests
+
     func test_userDTO_toDomain_mapsCorrectly() {
         let dto = UserDTO(
             id: "1",

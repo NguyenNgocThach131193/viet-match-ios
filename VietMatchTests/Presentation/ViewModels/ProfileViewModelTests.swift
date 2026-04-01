@@ -41,6 +41,19 @@ final class ProfileViewModelTests: XCTestCase {
         super.tearDown()
     }
 
+    // MARK: - loadProfile with injected userId
+
+    func test_loadProfile_usesInjectedUserId() async {
+        let expectedProfile = Profile(id: "user_1", name: "Test", age: 25, bio: "Bio")
+        mockProfileRepo.getProfileResult = .success(expectedProfile)
+
+        await sut.loadProfile()
+
+        XCTAssertEqual(mockProfileRepo.getProfileCallCount, 1)
+        XCTAssertEqual(sut.profile?.id, "user_1")
+        XCTAssertFalse(sut.isLoading)
+    }
+
     // MARK: - addPhoto
 
     func test_addPhoto_success_appendsPhotoURL() async {

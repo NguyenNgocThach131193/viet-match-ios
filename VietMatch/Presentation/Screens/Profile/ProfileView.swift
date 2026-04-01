@@ -35,7 +35,7 @@ struct ProfileView: View {
             }
         }
         .task {
-            await viewModel.loadProfile(userId: "current_user_id")
+            await viewModel.loadProfile()
         }
     }
 

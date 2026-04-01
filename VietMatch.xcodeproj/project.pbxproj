@@ -133,6 +133,12 @@
 		FAD8EF71858FCC900574CB3B /* GetMessagesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEF793EC52B84AE4F92C75F /* GetMessagesUseCase.swift */; };
 		FDCDF7CE26FEF1ABEC94012B /* ResetPasswordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BC585E03F186852D80E39D /* ResetPasswordUseCase.swift */; };
 		FE38283EB50E6C43585EED58 /* GetMatchesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FAD434C12490A094A40E00 /* GetMatchesUseCase.swift */; };
+		AA0002000000000000000001 /* MockUserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001000000000000000001 /* MockUserDefaultsService.swift */; };
+		AA0002000000000000000002 /* MockFirebaseAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001000000000000000002 /* MockFirebaseAuthService.swift */; };
+		AA0002000000000000000003 /* MockFirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001000000000000000003 /* MockFirestoreService.swift */; };
+		AA0002000000000000000004 /* MockChatRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001000000000000000004 /* MockChatRepository.swift */; };
+		AA0002000000000000000005 /* ConversationsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001000000000000000005 /* ConversationsViewModelTests.swift */; };
+		AA0002000000000000000006 /* MatchesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001000000000000000006 /* MatchesViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -274,6 +280,12 @@
 		FA6A484EFB7FADD35C1AB3CF /* FirebaseStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageService.swift; sourceTree = "<group>"; };
 		FC534734EA5C574E73472AEB /* ChatRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRepositoryProtocol.swift; sourceTree = "<group>"; };
 		FC77E85B5F54FCEF0D2DC3CE /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		AA0001000000000000000001 /* MockUserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserDefaultsService.swift; sourceTree = "<group>"; };
+		AA0001000000000000000002 /* MockFirebaseAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFirebaseAuthService.swift; sourceTree = "<group>"; };
+		AA0001000000000000000003 /* MockFirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFirestoreService.swift; sourceTree = "<group>"; };
+		AA0001000000000000000004 /* MockChatRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockChatRepository.swift; sourceTree = "<group>"; };
+		AA0001000000000000000005 /* ConversationsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsViewModelTests.swift; sourceTree = "<group>"; };
+		AA0001000000000000000006 /* MatchesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -441,9 +453,11 @@
 			isa = PBXGroup;
 			children = (
 				125D5F72E5324A011ABBEC13 /* ChatViewModelTests.swift */,
+				AA0001000000000000000005 /* ConversationsViewModelTests.swift */,
 				A8ECAF517D6C7BC58426168D /* DiscoverViewModelTests.swift */,
 				9F4DAA3861C3571430C77294 /* ForgotPasswordViewModelTests.swift */,
 				2D9B58D564E7F8BA6D69C850 /* LoginViewModelTests.swift */,
+				AA0001000000000000000006 /* MatchesViewModelTests.swift */,
 				4273615B31D1760C7BF76EAF /* ProfileDetailViewModelTests.swift */,
 				CF06F190C832B7B64F1F8908 /* ProfileViewModelTests.swift */,
 			);
@@ -484,8 +498,12 @@
 			isa = PBXGroup;
 			children = (
 				A5ACA5A1F33EB9EAC310B385 /* MockAuthRepository.swift */,
+				AA0001000000000000000004 /* MockChatRepository.swift */,
+				AA0001000000000000000002 /* MockFirebaseAuthService.swift */,
+				AA0001000000000000000003 /* MockFirestoreService.swift */,
 				DB04E1D489C9D4B84C212DE5 /* MockMatchRepository.swift */,
 				70003B1070F1E05CB1217A35 /* MockProfileRepository.swift */,
+				AA0001000000000000000001 /* MockUserDefaultsService.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -1051,9 +1069,15 @@
 				63D34601DE6FBFC0B3168DC8 /* ForgotPasswordViewModelTests.swift in Sources */,
 				145917D2E0445F6E6B808F61 /* LoginUseCaseTests.swift in Sources */,
 				515BB105C81F72124FA3330A /* LoginViewModelTests.swift in Sources */,
+				AA0002000000000000000005 /* ConversationsViewModelTests.swift in Sources */,
+				AA0002000000000000000006 /* MatchesViewModelTests.swift in Sources */,
 				58123B55D0EF156BA0B84BD6 /* MockAuthRepository.swift in Sources */,
+				AA0002000000000000000004 /* MockChatRepository.swift in Sources */,
+				AA0002000000000000000002 /* MockFirebaseAuthService.swift in Sources */,
+				AA0002000000000000000003 /* MockFirestoreService.swift in Sources */,
 				B498978B94643E6D4A0A1AA1 /* MockMatchRepository.swift in Sources */,
 				C7B45FAC3BD1620C32312F47 /* MockProfileRepository.swift in Sources */,
+				AA0002000000000000000001 /* MockUserDefaultsService.swift in Sources */,
 				DA3168BC77CE567538A63949 /* ProfileDetailViewModelTests.swift in Sources */,
 				DC80E33C5E3EFA7DBBC15090 /* ProfileViewModelTests.swift in Sources */,
 				9AE2A2BAC82D809C9C049BE2 /* SwipeUseCaseTests.swift in Sources */,

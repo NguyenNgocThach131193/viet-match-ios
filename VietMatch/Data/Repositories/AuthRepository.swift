@@ -63,20 +63,24 @@ final class AuthRepository: AuthRepositoryProtocol {
 
     func loginWithGoogle() async throws -> User {
         let firebaseUser = try await authService.signInWithGoogle()
-        return User(
+        let user = User(
             id: firebaseUser.uid,
             email: firebaseUser.email ?? "",
             displayName: firebaseUser.displayName ?? ""
         )
+        userDefaultsService.set(user.id, forKey: UserDefaultsKey.currentUserId)
+        return user
     }
 
     func loginWithApple(idToken: String, nonce: String) async throws -> User {
         let firebaseUser = try await authService.signInWithApple(idToken: idToken, nonce: nonce)
-        return User(
+        let user = User(
             id: firebaseUser.uid,
             email: firebaseUser.email ?? "",
             displayName: firebaseUser.displayName ?? ""
         )
+        userDefaultsService.set(user.id, forKey: UserDefaultsKey.currentUserId)
+        return user
     }
 
     func logout() async throws {

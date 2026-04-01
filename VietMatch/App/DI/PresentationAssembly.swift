@@ -62,9 +62,11 @@ final class PresentationAssembly: Assembly {
 
         container.register(ProfileDetailViewModel.self) { (resolver, profileId: String) in
             MainActor.assumeIsolated {
-                ProfileDetailViewModel(
+                let userDefaultsService = resolver.resolve(UserDefaultsServiceProtocol.self)!
+                let currentUserId: String = userDefaultsService.get(forKey: UserDefaultsKey.currentUserId) ?? ""
+                return ProfileDetailViewModel(
                     profileId: profileId,
-                    currentUserId: "",
+                    currentUserId: currentUserId,
                     getProfileUseCase: resolver.resolve(GetProfileUseCaseProtocol.self)!,
                     swipeUseCase: resolver.resolve(SwipeUseCaseProtocol.self)!
                 )
@@ -75,7 +77,10 @@ final class PresentationAssembly: Assembly {
 
         container.register(MatchesViewModel.self) { resolver in
             MainActor.assumeIsolated {
-                MatchesViewModel(
+                let userDefaultsService = resolver.resolve(UserDefaultsServiceProtocol.self)!
+                let currentUserId: String = userDefaultsService.get(forKey: UserDefaultsKey.currentUserId) ?? ""
+                return MatchesViewModel(
+                    currentUserId: currentUserId,
                     getMatchesUseCase: resolver.resolve(GetMatchesUseCaseProtocol.self)!
                 )
             }
@@ -85,7 +90,10 @@ final class PresentationAssembly: Assembly {
 
         container.register(ConversationsViewModel.self) { resolver in
             MainActor.assumeIsolated {
-                ConversationsViewModel(
+                let userDefaultsService = resolver.resolve(UserDefaultsServiceProtocol.self)!
+                let currentUserId: String = userDefaultsService.get(forKey: UserDefaultsKey.currentUserId) ?? ""
+                return ConversationsViewModel(
+                    currentUserId: currentUserId,
                     getConversationsUseCase: resolver.resolve(GetConversationsUseCaseProtocol.self)!
                 )
             }

@@ -9,6 +9,7 @@ final class MockMatchRepository: MatchRepositoryProtocol {
 
     var swipeCallCount = 0
     var getMatchesCallCount = 0
+    var lastGetMatchesUserId: String?
     var lastGetDiscoverProfilesUserId: String?
 
     func swipe(swiperId: String, swipedUserId: String, direction: SwipeDirection) async throws -> Match? {
@@ -18,6 +19,7 @@ final class MockMatchRepository: MatchRepositoryProtocol {
 
     func getMatches(userId: String) async throws -> [Match] {
         getMatchesCallCount += 1
+        lastGetMatchesUserId = userId
         return try getMatchesResult.get()
     }
 

@@ -40,10 +40,10 @@ final class ProfileViewModel: ObservableObject {
         self.profileRepository = profileRepository
     }
 
-    func loadProfile(userId: String) async {
+    func loadProfile() async {
         isLoading = true
         do {
-            profile = try await getProfileUseCase.execute(userId: userId)
+            profile = try await getProfileUseCase.execute(userId: currentUserId)
             syncEditFields()
         } catch {
             errorMessage = error.localizedDescription

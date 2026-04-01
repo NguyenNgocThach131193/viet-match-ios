@@ -32,7 +32,7 @@ struct ConversationsView: View {
             }
         }
         .task {
-            await viewModel.loadConversations(userId: "current_user_id")
+            await viewModel.loadConversations()
         }
     }
 
