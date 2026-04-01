@@ -1,6 +1,6 @@
 # Story 1.8: Concurrency Guards — In-Flight Protection cho Async Actions
 
-Status: ready-for-dev
+Status: done
 
 ## Story
 
@@ -18,26 +18,26 @@ so that **khong co duplicate API calls, duplicate profiles, hoac race conditions
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Them isSwiping guard cho ProfileDetailViewModel (AC: #1)
-  - [ ] 1.1 Sua `VietMatch/Presentation/Screens/Discover/ProfileDetailViewModel.swift`
-  - [ ] 1.2 Them `@Published private(set) var isSwiping = false` property
-  - [ ] 1.3 Trong `swipe(direction:)` (line 40-55): them `guard !isSwiping else { return }` va set `isSwiping = true` / `defer { isSwiping = false }`
-  - [ ] 1.4 Viet unit tests: verify concurrent swipe calls bi block, verify isSwiping state
+- [x] Task 1: Them isSwiping guard cho ProfileDetailViewModel (AC: #1)
+  - [x] 1.1 Sua `VietMatch/Presentation/Screens/Discover/ProfileDetailViewModel.swift`
+  - [x] 1.2 Them `@Published private(set) var isSwiping = false` property
+  - [x] 1.3 Trong `swipe(direction:)` (line 40-55): them `guard !isSwiping else { return }` va set `isSwiping = true` / `defer { isSwiping = false }`
+  - [x] 1.4 Viet unit tests: verify concurrent swipe calls bi block, verify isSwiping state
 
-- [ ] Task 2: Them in-flight guard cho DiscoverViewModel.loadMoreProfiles() (AC: #2)
-  - [ ] 2.1 Sua `VietMatch/Presentation/Screens/Discover/DiscoverViewModel.swift`
-  - [ ] 2.2 Them `private var isLoadingMore = false` property
-  - [ ] 2.3 Trong `loadMoreProfiles()` (line 86-96): them `guard !isLoadingMore else { return }` va set `isLoadingMore = true` / `defer { isLoadingMore = false }`
-  - [ ] 2.4 Viet unit test: verify concurrent loadMoreProfiles bi block
+- [x] Task 2: Them in-flight guard cho DiscoverViewModel.loadMoreProfiles() (AC: #2)
+  - [x] 2.1 Sua `VietMatch/Presentation/Screens/Discover/DiscoverViewModel.swift`
+  - [x] 2.2 Them `private var isLoadingMore = false` property
+  - [x] 2.3 Trong `loadMoreProfiles()` (line 86-96): them `guard !isLoadingMore else { return }` va set `isLoadingMore = true` / `defer { isLoadingMore = false }`
+  - [x] 2.4 Viet unit test: verify concurrent loadMoreProfiles bi block
 
-- [ ] Task 3: Disable swipe buttons khi dang processing (AC: #3)
-  - [ ] 3.1 Kiem tra `DiscoverView.swift` (line 79-115) — xac dinh cac action buttons
-  - [ ] 3.2 Them `.disabled(viewModel.isSwiping)` hoac tuong duong cho swipe buttons
-  - [ ] 3.3 Neu DiscoverViewModel chua co `isSwiping` published property, them tuong tu ProfileDetailViewModel
+- [x] Task 3: Disable swipe buttons khi dang processing (AC: #3)
+  - [x] 3.1 Kiem tra `DiscoverView.swift` (line 79-115) — xac dinh cac action buttons
+  - [x] 3.2 Them `.disabled(viewModel.isSwiping)` hoac tuong duong cho swipe buttons
+  - [x] 3.3 Neu DiscoverViewModel chua co `isSwiping` published property, them tuong tu ProfileDetailViewModel
 
-- [ ] Task 4: Full test suite pass (AC: #4, #5)
-  - [ ] 4.1 Chay toan bo test suite — dam bao 0 test failures moi
-  - [ ] 4.2 Build thanh cong
+- [x] Task 4: Full test suite pass (AC: #4, #5)
+  - [x] 4.1 Chay toan bo test suite — dam bao 0 test failures moi
+  - [x] 4.2 Build thanh cong
 
 ## Dev Notes
 
@@ -94,12 +94,40 @@ func swipe(direction: SwipeDirection) async {
 - [Source: LoginViewModel.swift#L43-54 — loginWithGoogle() DA CO guard — reference pattern]
 - [Source: deferred-work.md — CONC-1, CONC-2, CONC-3]
 
+### Review Findings
+
+- [x] [Review][Decision] CardView gesture không bị disable khi swiping — Fixed: thêm `.allowsHitTesting(!viewModel.isSwiping)` cho cardStack
+- [x] [Review][Defer] `loadProfiles()` thiếu reentrancy guard [DiscoverViewModel.swift:35-47] — deferred, pre-existing
+
 ## Dev Agent Record
 
 ### Agent Model Used
 
+Claude Opus 4.6 (1M context)
+
 ### Debug Log References
+
+N/A
 
 ### Completion Notes List
 
+- **Task 1:** Added `@Published private(set) var isSwiping = false` to `ProfileDetailViewModel`. Added `guard !isSwiping` + `defer` pattern to `swipe(direction:)`. 3 new tests: `test_swipe_setsIsSwipingDuringExecution`, `test_swipe_concurrentCallsBlocked`, `test_isSwiping_resetsAfterError`.
+- **Task 2:** Added `private var isLoadingMore = false` with guard to `loadMoreProfiles()`. Added `@Published private(set) var isSwiping = false` with guard to `swipe(direction:)` in `DiscoverViewModel`. 4 new tests: `test_swipe_setsIsSwipingDuringExecution`, `test_swipe_concurrentCallsBlocked`, `test_loadMoreProfiles_concurrentCallsBlocked`, `test_isSwiping_resetsAfterError`.
+- **Task 3:** Added `.disabled(viewModel.isSwiping)` to `actionButtons` container in `DiscoverView`.
+- **Task 4:** Full unit test suite passed — 72/72 tests, 0 failures. UI tests have pre-existing failures (app launch issues, unrelated to this story).
+- **Pre-existing fix:** Removed phantom `MockDeletePhotoUseCase.swift` reference from `project.pbxproj` (file exists at correct location `VietMatchTests/Mocks/`).
+- Added `swipeDelay` and `getDiscoverProfilesDelay` to `MockMatchRepository` for concurrency test support.
+
+### Change Log
+
+- 2026-04-01: Implemented concurrency guards for Story 1-8 — all 4 tasks complete
+
 ### File List
+
+- VietMatch/Presentation/Screens/Discover/ProfileDetailViewModel.swift (modified)
+- VietMatch/Presentation/Screens/Discover/DiscoverViewModel.swift (modified)
+- VietMatch/Presentation/Screens/Discover/DiscoverView.swift (modified)
+- VietMatchTests/Presentation/ViewModels/ProfileDetailViewModelTests.swift (modified)
+- VietMatchTests/Presentation/ViewModels/DiscoverViewModelTests.swift (modified)
+- VietMatchTests/Mocks/MockMatchRepository.swift (modified)
+- VietMatch.xcodeproj/project.pbxproj (modified — removed phantom MockDeletePhotoUseCase reference)

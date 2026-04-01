@@ -74,6 +74,7 @@ struct DiscoverView: View {
             }
         }
         .padding(.horizontal, VietMatchSpacing.lg)
+        .allowsHitTesting(!viewModel.isSwiping)
     }
 
     private var actionButtons: some View {
@@ -112,5 +113,6 @@ struct DiscoverView: View {
             }
         }
         .padding(.vertical, VietMatchSpacing.xl)
+        .disabled(viewModel.isSwiping)
     }
 }

@@ -4,6 +4,7 @@ import Foundation
 final class ProfileDetailViewModel: ObservableObject {
     @Published var profile: Profile?
     @Published var isLoading = false
+    @Published private(set) var isSwiping = false
     @Published var showMatchAlert = false
     @Published var matchedProfile: Profile?
     @Published var errorMessage: String?
@@ -38,7 +39,10 @@ final class ProfileDetailViewModel: ObservableObject {
     }
 
     func swipe(direction: SwipeDirection) async {
+        guard !isSwiping else { return }
         guard let profile else { return }
+        isSwiping = true
+        defer { isSwiping = false }
         do {
             let match = try await swipeUseCase.execute(
                 swiperId: currentUserId,

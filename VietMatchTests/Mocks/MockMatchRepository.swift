@@ -12,8 +12,14 @@ final class MockMatchRepository: MatchRepositoryProtocol {
     var lastGetMatchesUserId: String?
     var lastGetDiscoverProfilesUserId: String?
 
+    var swipeDelay: UInt64 = 0
+    var getDiscoverProfilesDelay: UInt64 = 0
+
     func swipe(swiperId: String, swipedUserId: String, direction: SwipeDirection) async throws -> Match? {
         swipeCallCount += 1
+        if swipeDelay > 0 {
+            try? await Task.sleep(nanoseconds: swipeDelay)
+        }
         return try swipeResult.get()
     }
 
@@ -25,6 +31,9 @@ final class MockMatchRepository: MatchRepositoryProtocol {
 
     func getDiscoverProfiles(userId: String, limit: Int) async throws -> [Profile] {
         lastGetDiscoverProfilesUserId = userId
+        if getDiscoverProfilesDelay > 0 {
+            try? await Task.sleep(nanoseconds: getDiscoverProfilesDelay)
+        }
         return try getDiscoverProfilesResult.get()
     }
 

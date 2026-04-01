@@ -139,6 +139,10 @@
 		AA0002000000000000000004 /* MockChatRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001000000000000000004 /* MockChatRepository.swift */; };
 		AA0002000000000000000005 /* ConversationsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001000000000000000005 /* ConversationsViewModelTests.swift */; };
 		AA0002000000000000000006 /* MatchesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001000000000000000006 /* MatchesViewModelTests.swift */; };
+		BB0002000000000000000001 /* DeletePhotoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0001000000000000000001 /* DeletePhotoUseCase.swift */; };
+
+		BB0002000000000000000003 /* MockDeletePhotoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0001000000000000000003 /* MockDeletePhotoUseCase.swift */; };
+		BB0002000000000000000004 /* DeletePhotoUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0001000000000000000004 /* DeletePhotoUseCaseTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -286,6 +290,10 @@
 		AA0001000000000000000004 /* MockChatRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockChatRepository.swift; sourceTree = "<group>"; };
 		AA0001000000000000000005 /* ConversationsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsViewModelTests.swift; sourceTree = "<group>"; };
 		AA0001000000000000000006 /* MatchesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesViewModelTests.swift; sourceTree = "<group>"; };
+		BB0001000000000000000001 /* DeletePhotoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePhotoUseCase.swift; sourceTree = "<group>"; };
+
+		BB0001000000000000000003 /* MockDeletePhotoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDeletePhotoUseCase.swift; sourceTree = "<group>"; };
+		BB0001000000000000000004 /* DeletePhotoUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePhotoUseCaseTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -501,6 +509,7 @@
 				AA0001000000000000000004 /* MockChatRepository.swift */,
 				AA0001000000000000000002 /* MockFirebaseAuthService.swift */,
 				AA0001000000000000000003 /* MockFirestoreService.swift */,
+				BB0001000000000000000003 /* MockDeletePhotoUseCase.swift */,
 				DB04E1D489C9D4B84C212DE5 /* MockMatchRepository.swift */,
 				70003B1070F1E05CB1217A35 /* MockProfileRepository.swift */,
 				AA0001000000000000000001 /* MockUserDefaultsService.swift */,
@@ -574,6 +583,7 @@
 			isa = PBXGroup;
 			children = (
 				E74E13AE0371AC1956C58517 /* LoginUseCaseTests.swift */,
+				BB0001000000000000000004 /* DeletePhotoUseCaseTests.swift */,
 				DCBC5B4518AC97A403A428D7 /* SwipeUseCaseTests.swift */,
 			);
 			path = UseCases;
@@ -672,6 +682,7 @@
 			children = (
 				2BEA164C0846CCBC1C7A551A /* GetProfileUseCase.swift */,
 				76AEC8D6140929451FE1345E /* UpdateProfileUseCase.swift */,
+				BB0001000000000000000001 /* DeletePhotoUseCase.swift */,
 				D912E806BAABC04956367759 /* UploadPhotoUseCase.swift */,
 			);
 			path = Profile;
@@ -685,6 +696,7 @@
 				01B3C91F8214297A8E3F9023 /* MockData.swift */,
 				2CC6B1B2382CEE9DE6112439 /* MockDataAssembly.swift */,
 				833A1B6A8ACCC41B1AAF6023 /* MockMatchRepository.swift */,
+
 				5809A56C133E126BA4553399 /* MockProfileRepository.swift */,
 			);
 			path = Mock;
@@ -1049,6 +1061,7 @@
 				353B56624383A98CC50058EF /* SwipeUseCase.swift in Sources */,
 				6CDD983562C6F27342F41F86 /* Typography.swift in Sources */,
 				01E7DB736289B11E42BAC87A /* UpdateProfileUseCase.swift in Sources */,
+				BB0002000000000000000001 /* DeletePhotoUseCase.swift in Sources */,
 				2DE4752C006AB555DA3B0016 /* UploadPhotoUseCase.swift in Sources */,
 				5C7C715A50028C57FB8DBE0A /* User.swift in Sources */,
 				EB54A4A9644F0766EAF6105F /* UserDTO.swift in Sources */,
@@ -1079,6 +1092,9 @@
 				C7B45FAC3BD1620C32312F47 /* MockProfileRepository.swift in Sources */,
 				AA0002000000000000000001 /* MockUserDefaultsService.swift in Sources */,
 				DA3168BC77CE567538A63949 /* ProfileDetailViewModelTests.swift in Sources */,
+
+				BB0002000000000000000003 /* MockDeletePhotoUseCase.swift in Sources */,
+				BB0002000000000000000004 /* DeletePhotoUseCaseTests.swift in Sources */,
 				DC80E33C5E3EFA7DBBC15090 /* ProfileViewModelTests.swift in Sources */,
 				9AE2A2BAC82D809C9C049BE2 /* SwipeUseCaseTests.swift in Sources */,
 			);

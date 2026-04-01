@@ -103,4 +103,57 @@ final class ProfileDetailViewModelTests: XCTestCase {
 
         XCTAssertEqual(mockMatchRepo.swipeCallCount, 0)
     }
+
+    // MARK: - Concurrency Guard Tests (Story 1-8)
+
+    func test_swipe_setsIsSwipingDuringExecution() async {
+        let profile = Profile(id: "profile-1", name: "Test", age: 25)
+        mockProfileRepo.getProfileResult = .success(profile)
+        await sut.loadProfile()
+
+        mockMatchRepo.swipeDelay = 100_000_000 // 100ms
+        mockMatchRepo.swipeResult = .success(nil)
+
+        XCTAssertFalse(sut.isSwiping)
+
+        let task = Task { await sut.like() }
+        try? await Task.sleep(nanoseconds: 10_000_000) // 10ms — let swipe start
+
+        XCTAssertTrue(sut.isSwiping)
+
+        await task.value
+        XCTAssertFalse(sut.isSwiping)
+    }
+
+    func test_swipe_concurrentCallsBlocked() async {
+        let profile = Profile(id: "profile-1", name: "Test", age: 25)
+        mockProfileRepo.getProfileResult = .success(profile)
+        await sut.loadProfile()
+
+        mockMatchRepo.swipeDelay = 100_000_000 // 100ms
+        mockMatchRepo.swipeResult = .success(nil)
+
+        let task1 = Task { await sut.like() }
+        try? await Task.sleep(nanoseconds: 10_000_000) // 10ms
+
+        // Second call should be blocked by guard
+        await sut.dislike()
+
+        await task1.value
+
+        // Only first swipe should have executed
+        XCTAssertEqual(mockMatchRepo.swipeCallCount, 1)
+    }
+
+    func test_isSwiping_resetsAfterError() async {
+        let profile = Profile(id: "profile-1", name: "Test", age: 25)
+        mockProfileRepo.getProfileResult = .success(profile)
+        await sut.loadProfile()
+
+        mockMatchRepo.swipeResult = .failure(APIError.networkError)
+
+        await sut.like()
+
+        XCTAssertFalse(sut.isSwiping)
+    }
 }

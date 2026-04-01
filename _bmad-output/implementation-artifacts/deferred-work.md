@@ -39,6 +39,7 @@
 | CONC-1 | Swipe actions không debounce/throttle → concurrent API calls | 1.2 | `ProfileDetailViewModel.swift` |
 | CONC-2 | `loadMoreProfiles()` chạy concurrent khi swipe nhanh → duplicate profiles. `.task` re-fires khi view re-appears → double-reset | 1.6 | `DiscoverViewModel.swift` |
 | CONC-3 | Google Sign-In button không disable khi `isLoading = true` → multiple GIDSignIn sessions | 1.4 | `LoginView.swift` |
+| CONC-4 | `loadProfiles()` thiếu reentrancy guard — `.task` có thể re-fire khi view re-appears gây concurrent fetch | 1.8 review | `DiscoverViewModel.swift:35-47` |
 
 **Đề xuất giải pháp:** Thêm `guard !isLoading` / `guard !isSwiping` state cho tất cả async entry points. Disable interactive elements khi loading.
 
@@ -51,8 +52,10 @@
 | ID | Mô tả | Nguồn | Files ảnh hưởng |
 |----|-------|-------|-----------------|
 | PHOTO-1 | `addPhoto` upload lên Storage nhưng không persist Firestore cho đến khi tap "Lưu thay đổi" → orphaned files nếu dismiss | 1.3 (EC-7) | `ProfileViewModel.swift` |
-| PHOTO-2 | `removePhoto` gọi `profileRepository.deletePhoto` trực tiếp, bypass UseCase layer (trong khi `addPhoto` dùng `UploadPhotoUseCaseProtocol`) | 1.3 (BH-10) | `ProfileViewModel.swift` |
-| PHOTO-3 | `dismiss()` gọi unconditionally sau `saveProfile()` failure → swallow errorMessage | 1.3 (EC-10) | `EditProfileView.swift` |
+| ~~PHOTO-2~~ | ~~`removePhoto` gọi `profileRepository.deletePhoto` trực tiếp, bypass UseCase layer~~ | ~~1.3 (BH-10)~~ | **FIXED in Story 1.9** |
+| ~~PHOTO-3~~ | ~~`dismiss()` gọi unconditionally sau `saveProfile()` failure → swallow errorMessage~~ | ~~1.3 (EC-10)~~ | **FIXED in Story 1.9** |
+| PHOTO-4 | `errorMessage == nil` dùng làm success signal cho conditional dismiss — fragile nếu saveProfile() thay đổi error handling | 1.9 review | `EditProfileView.swift` |
+| PHOTO-5 | `removePhoto` URL mismatch (trailing slash, encoding) → silent no-op: server delete thành công nhưng UI giữ photo | 1.9 review | `ProfileViewModel.swift` |
 
 **Đề xuất giải pháp:** Tạo `DeletePhotoUseCaseProtocol` cho symmetry. Thêm unsaved-changes warning trước dismiss. Chỉ dismiss khi save thành công.
 

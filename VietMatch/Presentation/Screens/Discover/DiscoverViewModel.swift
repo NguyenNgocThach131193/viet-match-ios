@@ -5,9 +5,12 @@ final class DiscoverViewModel: ObservableObject {
     @Published var profiles: [Profile] = []
     @Published var currentIndex = 0
     @Published var isLoading = false
+    @Published private(set) var isSwiping = false
     @Published var showMatchAlert = false
     @Published var matchedProfile: Profile?
     @Published var errorMessage: String?
+
+    private var isLoadingMore = false
 
     private let getDiscoverProfilesUseCase: GetDiscoverProfilesUseCaseProtocol
     private let swipeUseCase: SwipeUseCaseProtocol
@@ -47,7 +50,10 @@ final class DiscoverViewModel: ObservableObject {
     }
 
     func swipe(direction: SwipeDirection) async {
+        guard !isSwiping else { return }
         guard let profile = currentProfile else { return }
+        isSwiping = true
+        defer { isSwiping = false }
 
         do {
             let match = try await swipeUseCase.execute(
@@ -84,6 +90,9 @@ final class DiscoverViewModel: ObservableObject {
     }
 
     private func loadMoreProfiles() async {
+        guard !isLoadingMore else { return }
+        isLoadingMore = true
+        defer { isLoadingMore = false }
         do {
             let newProfiles = try await getDiscoverProfilesUseCase.execute(
                 userId: currentUserId,
