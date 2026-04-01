@@ -33,7 +33,15 @@
       "Bash(brew install:*)",
       "Bash(xcodebuild build:*)",
       "Bash(xcodebuild test:*)",
-      "Bash(git stash:*)"
+      "Bash(git stash:*)",
+      "Bash(find /Users/thachnn5/Desktop/projects/viet-match-ios -maxdepth 3 -type f \\\\\\(-name *.pbxproj -o -name Package.swift -o -name Podfile -o -name *.xcworkspace -o -name *.xctestplan \\\\\\))",
+      "Bash(find /Users/thachnn5/Desktop/projects/viet-match-ios -maxdepth 2 -type d -name *Tests -o -type d -name *UITests)",
+      "Bash(find /Users/thachnn5/Desktop/projects/viet-match-ios -maxdepth 2 -type f \\\\\\(-name .github -o -name *.yml -o -name *.yaml -o -name Makefile -o -name .circleci -o -name .gitlab-ci.yml -o -name fastlane \\\\\\))",
+      "Bash(xargs ls:*)",
+      "Bash(grep -l \"test\" /Users/thachnn5/Desktop/projects/viet-match-ios/VietMatch.xcodeproj/xcshareddata/xcschemes/*.xcscheme)",
+      "Bash(grep -h \"^import\" /Users/thachnn5/Desktop/projects/viet-match-ios/VietMatchTests/**/*.swift)",
+      "Bash(grep -h \"^import\" /Users/thachnn5/Desktop/projects/viet-match-ios/VietMatchUITests/*.swift)",
+      "Bash(find /Users/thachnn5/Desktop/projects/viet-match-ios/docs -name *test* -o -name *ci* -o -name *ci*)"
     ]
   }
 }
