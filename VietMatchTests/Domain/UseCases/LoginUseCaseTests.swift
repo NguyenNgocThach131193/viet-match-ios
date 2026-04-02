@@ -55,4 +55,38 @@ final class LoginUseCaseTests: XCTestCase {
             XCTAssertEqual(error as? AuthError, .userNotFound)
         }
     }
+
+    // MARK: - Apple Sign-In
+
+    func test_executeWithApple_success_returnsUser() async throws {
+        let expectedUser = User(id: "apple-uid", email: "apple@test.com", displayName: "Apple User")
+        mockAuthRepo.loginResult = .success(expectedUser)
+
+        let user = try await sut.executeWithApple(idToken: "valid-id-token", nonce: "valid-nonce")
+
+        XCTAssertEqual(user.id, "apple-uid")
+        XCTAssertEqual(user.email, "apple@test.com")
+    }
+
+    func test_executeWithApple_whenRepoFails_throwsError() async {
+        mockAuthRepo.loginResult = .failure(AuthError.cancelled)
+
+        do {
+            _ = try await sut.executeWithApple(idToken: "token", nonce: "nonce")
+            XCTFail("Expected error")
+        } catch {
+            XCTAssertEqual(error as? AuthError, .cancelled)
+        }
+    }
+
+    // MARK: - Google Sign-In
+
+    func test_executeWithGoogle_success_returnsUser() async throws {
+        let expectedUser = User(id: "google-uid", email: "google@test.com", displayName: "Google User")
+        mockAuthRepo.loginResult = .success(expectedUser)
+
+        let user = try await sut.executeWithGoogle()
+
+        XCTAssertEqual(user.id, "google-uid")
+    }
 }

@@ -8,6 +8,7 @@ final class DiscoverViewModel: ObservableObject {
     @Published private(set) var isSwiping = false
     @Published var showMatchAlert = false
     @Published var matchedProfile: Profile?
+    @Published var currentMatchId: String?
     @Published var errorMessage: String?
 
     private var isLoadingMore = false
@@ -64,6 +65,7 @@ final class DiscoverViewModel: ObservableObject {
 
             if let match, match.matchedUserId == profile.id {
                 matchedProfile = profile
+                currentMatchId = match.id
                 showMatchAlert = true
             }
 

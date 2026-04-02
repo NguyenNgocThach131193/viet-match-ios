@@ -9,6 +9,7 @@ final class AppCoordinator: ObservableObject {
     private let container: Container
     private var cancellables = Set<AnyCancellable>()
     private lazy var authCoordinator = AuthCoordinator(container: container)
+    private lazy var locationService = container.resolve(LocationServiceProtocol.self)
 
     init(container: Container) {
         self.container = container
@@ -20,9 +21,14 @@ final class AppCoordinator: ObservableObject {
         authRepo.currentUser
             .receive(on: DispatchQueue.main)
             .sink { [weak self] user in
-                self?.isAuthenticated = user != nil
+                guard let self else { return }
+                self.isAuthenticated = user != nil
                 if let user {
-                    self?.hasCompletedOnboarding = user.profileCompleted
+                    self.hasCompletedOnboarding = user.profileCompleted
+                    self.locationService?.requestPermission()
+                    self.locationService?.startUpdating(userId: user.id)
+                } else {
+                    self.locationService?.stopUpdating()
                 }
             }
             .store(in: &cancellables)

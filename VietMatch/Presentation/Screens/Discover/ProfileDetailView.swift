@@ -21,11 +21,14 @@ struct ProfileDetailView: View {
         }
         .navigationBarBackButtonHidden(false)
         .task { await viewModel.loadProfile() }
-        .alert("It's a Match!", isPresented: $viewModel.showMatchAlert) {
-            Button("Nhắn tin", role: .none) {
-                viewModel.showMatchAlert = false
+        .alert("It's a Match! 🎉", isPresented: $viewModel.showMatchAlert) {
+            Button("Nhắn tin ngay") {
+                coordinator.pop()
+                if let matchId = viewModel.currentMatchId {
+                    coordinator.showChat(matchId: matchId)
+                }
             }
-            Button("Tiếp tục khám phá", role: .cancel) {
+            Button("Để sau", role: .cancel) {
                 coordinator.pop()
             }
         } message: {

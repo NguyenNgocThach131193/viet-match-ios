@@ -29,6 +29,13 @@ final class DomainAssembly: Assembly {
             )
         }
 
+        container.register(DeleteAccountUseCaseProtocol.self) { resolver in
+            DeleteAccountUseCase(
+                authRepository: resolver.resolve(AuthRepositoryProtocol.self)!,
+                profileRepository: resolver.resolve(ProfileRepositoryProtocol.self)!
+            )
+        }
+
         // MARK: - Profile Use Cases
 
         container.register(GetProfileUseCaseProtocol.self) { resolver in

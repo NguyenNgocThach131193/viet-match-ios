@@ -5,7 +5,13 @@ final class MainTabCoordinator: ObservableObject {
     @Published var selectedTab: Tab = .discover
 
     private let container: Container
-    private lazy var discoverCoordinator = DiscoverCoordinator(container: container)
+    private lazy var discoverCoordinator: DiscoverCoordinator = {
+        let coordinator = DiscoverCoordinator(container: container)
+        coordinator.navigateToChat = { [weak self] matchId in
+            self?.navigateToChat(matchId: matchId)
+        }
+        return coordinator
+    }()
     private lazy var chatCoordinator = ChatCoordinator(container: container)
     private lazy var profileCoordinator = ProfileCoordinator(container: container)
 
@@ -42,13 +48,20 @@ final class MainTabCoordinator: ObservableObject {
         MainTabView(coordinator: self)
     }
 
+    func navigateToChat(matchId: String) {
+        selectedTab = .chat
+        chatCoordinator.showChat(matchId: matchId)
+    }
+
     func discoverView() -> some View {
         discoverCoordinator.start()
     }
 
     func matchesView() -> some View {
         let viewModel = container.resolve(MatchesViewModel.self)!
-        return MatchesView(viewModel: viewModel)
+        return MatchesView(viewModel: viewModel, onMatchTap: { [weak self] matchId in
+            self?.navigateToChat(matchId: matchId)
+        })
     }
 
     func chatView() -> some View {

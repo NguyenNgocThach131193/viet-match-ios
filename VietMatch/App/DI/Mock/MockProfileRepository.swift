@@ -26,6 +26,10 @@ final class MockProfileRepository: ProfileRepositoryProtocol {
         try await Task.sleep(nanoseconds: 300_000_000)
     }
 
+    func deleteProfile(userId: String) async throws {
+        try await Task.sleep(nanoseconds: 300_000_000)
+    }
+
     func updateLocation(userId: String, location: Location) async throws {
         try await Task.sleep(nanoseconds: 200_000_000)
     }

@@ -31,12 +31,26 @@ final class MockSendMessageUseCase: SendMessageUseCaseProtocol {
     var lastContent: String?
     var lastMatchId: String?
 
+    var executeWithImageResult: Result<Message, Error> = .success(
+        Message(id: "img1", matchId: "match1", senderId: "user123", content: "https://example.com/img.jpg", type: .image)
+    )
+    var executeWithImageCallCount = 0
+    var lastImageData: Data?
+
     func execute(matchId: String, senderId: String, content: String, type: MessageType) async throws -> Message {
         executeCallCount += 1
         lastMatchId = matchId
         lastSenderId = senderId
         lastContent = content
         return try executeResult.get()
+    }
+
+    func executeWithImage(matchId: String, senderId: String, imageData: Data) async throws -> Message {
+        executeWithImageCallCount += 1
+        lastMatchId = matchId
+        lastSenderId = senderId
+        lastImageData = imageData
+        return try executeWithImageResult.get()
     }
 }
 
@@ -129,5 +143,51 @@ final class ChatViewModelTests: XCTestCase {
 
         XCTAssertEqual(sut.messageText, "Test message")
         XCTAssertNotNil(sut.errorMessage)
+    }
+
+    // MARK: - sendPhoto tests
+
+    func test_sendPhoto_callsExecuteWithImage() async {
+        let imageData = Data([0xFF, 0xD8, 0xFF])
+        let imageMessage = Message(id: "img1", matchId: "match1", senderId: "user123",
+                                   content: "https://example.com/img.jpg", type: .image)
+        mockSendMessage.executeWithImageResult = .success(imageMessage)
+
+        await sut.sendPhoto(imageData: imageData)
+
+        XCTAssertEqual(mockSendMessage.executeWithImageCallCount, 1)
+        XCTAssertEqual(mockSendMessage.lastImageData, imageData)
+        XCTAssertEqual(mockSendMessage.lastMatchId, "match1")
+    }
+
+    func test_sendPhoto_appendsImageMessageToList() async {
+        let imageMessage = Message(id: "img1", matchId: "match1", senderId: "user123",
+                                   content: "https://example.com/img.jpg", type: .image)
+        mockSendMessage.executeWithImageResult = .success(imageMessage)
+
+        await sut.sendPhoto(imageData: Data([0xFF, 0xD8, 0xFF]))
+
+        XCTAssertEqual(sut.messages.count, 1)
+        XCTAssertEqual(sut.messages.first?.type, .image)
+    }
+
+    func test_sendPhoto_onFailure_setsErrorMessage() async {
+        mockSendMessage.executeWithImageResult = .failure(ChatError.sendFailed)
+
+        await sut.sendPhoto(imageData: Data([0xFF, 0xD8, 0xFF]))
+
+        XCTAssertNotNil(sut.errorMessage)
+        XCTAssertFalse(sut.isSending)
+    }
+
+    func test_sendPhoto_whileSending_doesNotCallTwice() async {
+        let imageMessage = Message(id: "img1", matchId: "match1", senderId: "user123",
+                                   content: "https://img.jpg", type: .image)
+        mockSendMessage.executeWithImageResult = .success(imageMessage)
+        sut.isSending = true
+
+        await sut.sendPhoto(imageData: Data([0xFF, 0xD8, 0xFF]))
+
+        XCTAssertEqual(mockSendMessage.executeWithImageCallCount, 0)
     }
 }

@@ -36,9 +36,10 @@ struct SettingsView: View {
 
             // Notifications
             Section("Thông báo") {
-                Toggle("Matches mới", isOn: .constant(true))
-                Toggle("Tin nhắn mới", isOn: .constant(true))
-                Toggle("Super Likes", isOn: .constant(true))
+                Toggle("Bật thông báo", isOn: Binding(
+                    get: { viewModel.notificationsEnabled },
+                    set: { newValue in Task { await viewModel.toggleNotifications(enabled: newValue) } }
+                ))
             }
             .tint(VietMatchColors.primary)
 
@@ -69,6 +70,7 @@ struct SettingsView: View {
         }
         .navigationTitle("Cài đặt")
         .navigationBarTitleDisplayMode(.inline)
+        .task { await viewModel.loadPreferences() }
         .alert("Đăng xuất", isPresented: $viewModel.showLogoutConfirmation) {
             Button("Hủy", role: .cancel) {}
             Button("Đăng xuất", role: .destructive) {
@@ -79,9 +81,19 @@ struct SettingsView: View {
         }
         .alert("Xóa tài khoản", isPresented: $viewModel.showDeleteConfirmation) {
             Button("Hủy", role: .cancel) {}
-            Button("Xóa", role: .destructive) {}
+            Button("Xóa tài khoản", role: .destructive) {
+                Task { await viewModel.deleteAccount() }
+            }
         } message: {
-            Text("Hành động này không thể hoàn tác. Tất cả dữ liệu sẽ bị xóa vĩnh viễn.")
+            Text("Hành động này không thể hoàn tác. Tất cả dữ liệu của bạn sẽ bị xóa vĩnh viễn.")
+        }
+        .alert("Lỗi", isPresented: .init(
+            get: { viewModel.errorMessage != nil },
+            set: { if !$0 { viewModel.errorMessage = nil } }
+        )) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(viewModel.errorMessage ?? "")
         }
     }
 }

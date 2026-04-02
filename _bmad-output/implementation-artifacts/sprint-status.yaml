@@ -1,0 +1,118 @@
+# generated: 2026-04-01
+# last_updated: 2026-04-02 (session-2)
+# project: VietMatch
+# project_key: NOKEY
+# tracking_system: file-system
+# story_location: _bmad-output/implementation-artifacts
+
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic not yet started
+#   - in-progress: Epic actively being worked on
+#   - done: All stories in epic completed
+#
+# Epic Status Transitions:
+#   - backlog → in-progress: Automatically when first story is created (via create-story)
+#   - in-progress → done: Manually when all stories reach 'done' status
+#
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - ready-for-dev: Story file created in stories folder
+#   - in-progress: Developer actively working on implementation
+#   - review: Ready for code review (via Dev's code-review workflow)
+#   - done: Story completed
+#
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - done: Retrospective has been completed
+#
+# WORKFLOW NOTES:
+# ===============
+# - Epic transitions to 'in-progress' automatically when first story is created
+# - Stories can be worked in parallel if team capacity allows
+# - SM typically creates next story after previous one is 'done' to incorporate learnings
+# - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
+#
+# SPRINT NOTES (2026-04-01):
+# ==========================
+# Sprint 1 stories (1-1 → 1-9) dùng numbering riêng, không khớp với epics.md numbering.
+# Mapping thủ công được áp dụng:
+#   sprint/1-1-forgot-password-view       → epics 1.3 (done)
+#   sprint/1-2-profile-detail-view        → epics 3.4 (done)
+#   sprint/1-3-edit-profile-photo-grid    → epics 2.5 (partial, done)
+#   sprint/1-4-google-sign-in             → epics 1.4 (done)
+#   sprint/1-5-fix-chat-hardcoded-userid  → epics 4.1 (partial, done)
+#   sprint/1-6-fix-discover-hardcoded-userid → epics 3.1/3.2 (partial, done)
+#   sprint/1-7-auth-session-service       → epics 1.6 (done)
+#   sprint/1-8-concurrency-guards         → epics 3.2 (done)
+#   sprint/1-9-photo-save-flow            → epics 2.5 (done)
+#
+# RESOLVED:
+#   - QR-4: DeleteAccountUseCase đã thêm vào architecture.md (2026-04-02)
+#   - Story 1.5 (Apple Sign-In): story file đã tạo, status done
+#   - FEAT-1 (Match Alert Custom Overlay): story file đã tạo, status ready-for-dev
+#
+# OPEN:
+#   - Story 2.6 (Location): backlog — có thể pick up sau Epic 3/4 hoàn tất
+#   - AUTH-8: deleteAccount() race condition — deferred, pre-existing
+
+generated: 2026-04-01
+last_updated: 2026-04-02 (session-2)
+project: VietMatch
+project_key: NOKEY
+tracking_system: file-system
+story_location: _bmad-output/implementation-artifacts
+
+development_status:
+
+  # ─── EPIC 1: Xác Thực & Quản Lý Phiên ───────────────────────────────────
+  # 7/7 stories done. ✅ Epic hoàn thành.
+  epic-1: done
+  1-1-dang-ky-tai-khoan-bang-email: done
+  1-2-dang-nhap-bang-email-xu-ly-loi-tieng-viet: done
+  1-3-dat-lai-mat-khau: done
+  1-4-dang-nhap-bang-google: done
+  1-5-dang-nhap-bang-apple-id: done
+  1-6-authsessionservice-cold-start-session-restore: done
+  1-7-dang-xuat: done
+  epic-1-retrospective: optional
+
+  # ─── EPIC 2: Onboarding & Quản Lý Hồ Sơ ────────────────────────────────
+  # 5/6 stories done. Còn lại: Location Update (2.6)
+  epic-2: in-progress
+  2-1-onboarding-buoc-1-2-thong-tin-co-ban-gioi-tinh: done
+  2-2-onboarding-buoc-3-upload-anh: done
+  2-3-onboarding-buoc-4-so-thich-hoan-tat: done
+  2-4-chinh-sua-thong-tin-ho-so: done
+  2-5-quan-ly-anh-ho-so: done
+  2-6-cap-nhat-vi-tri-dia-ly: done
+  epic-2-retrospective: optional
+
+  # ─── EPIC 3: Khám Phá & Kết Nối ─────────────────────────────────────────
+  # Core stories done. FEAT-1 (match alert custom overlay) ready-for-dev.
+  epic-3: in-progress
+  3-1-tai-hien-thi-card-stack: done
+  3-2-swipe-like-dislike-super-like: done
+  3-3-match-detection-match-alert: done
+  feat-1-match-alert-navigation: ready-for-dev
+  3-4-xem-ho-so-chi-tiet: done
+  3-5-danh-sach-matches: done
+  3-6-discover-empty-state: done
+  epic-3-retrospective: optional
+
+  # ─── EPIC 4: Trò Chuyện Real-time ────────────────────────────────────────
+  # 1/4 done, 1 in-progress (core chat exists, ACs cần verify), 2 backlog
+  epic-4: in-progress
+  4-1-danh-sach-cuoc-tro-chuyen: done
+  4-2-gui-nhan-tin-nhan-real-time: done
+  4-3-gui-anh-gif-trong-chat: done
+  4-4-cross-tab-navigation-huy-match: done
+  epic-4-retrospective: optional
+
+  # ─── EPIC 5: Cài Đặt, Thông Báo & Quản Lý Tài Khoản ────────────────────
+  epic-5: done
+  5-1-bo-loc-tim-kiem-khoang-cach-do-tuoi: done
+  5-2-quan-ly-push-notifications: done
+  5-3-dang-xuat-xoa-tai-khoan-tu-settings: done
+  epic-5-retrospective: optional

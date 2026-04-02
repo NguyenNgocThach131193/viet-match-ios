@@ -5,6 +5,7 @@ final class DiscoverCoordinator: Coordinator {
     @Published var path = NavigationPath()
 
     private let container: Container
+    var navigateToChat: ((String) -> Void)?
 
     init(container: Container) {
         self.container = container
@@ -16,6 +17,10 @@ final class DiscoverCoordinator: Coordinator {
 
     func showProfileDetail(profileId: String) {
         path.append(DiscoverRoute.profileDetail(profileId: profileId))
+    }
+
+    func showChat(matchId: String) {
+        navigateToChat?(matchId)
     }
 
     @ViewBuilder

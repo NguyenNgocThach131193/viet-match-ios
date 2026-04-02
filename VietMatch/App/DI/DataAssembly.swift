@@ -50,7 +50,14 @@ final class DataAssembly: Assembly {
 
         container.register(ChatRepositoryProtocol.self) { resolver in
             ChatRepository(
-                firestoreService: resolver.resolve(FirestoreServiceProtocol.self)!
+                firestoreService: resolver.resolve(FirestoreServiceProtocol.self)!,
+                storageService: resolver.resolve(FirebaseStorageServiceProtocol.self)!
+            )
+        }.inObjectScope(.container)
+
+        container.register(LocationServiceProtocol.self) { resolver in
+            LocationService(
+                profileRepository: resolver.resolve(ProfileRepositoryProtocol.self)!
             )
         }.inObjectScope(.container)
     }

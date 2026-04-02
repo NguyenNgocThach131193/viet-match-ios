@@ -2,6 +2,7 @@ import Foundation
 
 protocol SendMessageUseCaseProtocol {
     func execute(matchId: String, senderId: String, content: String, type: MessageType) async throws -> Message
+    func executeWithImage(matchId: String, senderId: String, imageData: Data) async throws -> Message
 }
 
 final class SendMessageUseCase: SendMessageUseCaseProtocol {
@@ -20,6 +21,15 @@ final class SendMessageUseCase: SendMessageUseCaseProtocol {
             senderId: senderId,
             content: content,
             type: type
+        )
+    }
+
+    func executeWithImage(matchId: String, senderId: String, imageData: Data) async throws -> Message {
+        guard !imageData.isEmpty else { throw ChatError.emptyMessage }
+        return try await chatRepository.sendImageMessage(
+            matchId: matchId,
+            senderId: senderId,
+            imageData: imageData
         )
     }
 }

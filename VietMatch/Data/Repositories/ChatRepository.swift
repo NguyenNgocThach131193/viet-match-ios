@@ -3,9 +3,11 @@ import Combine
 
 final class ChatRepository: ChatRepositoryProtocol {
     private let firestoreService: FirestoreServiceProtocol
+    private let storageService: FirebaseStorageServiceProtocol
 
-    init(firestoreService: FirestoreServiceProtocol) {
+    init(firestoreService: FirestoreServiceProtocol, storageService: FirebaseStorageServiceProtocol) {
         self.firestoreService = firestoreService
+        self.storageService = storageService
     }
 
     func sendMessage(matchId: String, senderId: String, content: String, type: MessageType) async throws -> Message {
@@ -28,6 +30,12 @@ final class ChatRepository: ChatRepositoryProtocol {
             fields: ["last_message_at": message.createdAt.timeIntervalSince1970]
         )
         return message
+    }
+
+    func sendImageMessage(matchId: String, senderId: String, imageData: Data) async throws -> Message {
+        let path = "chat/\(matchId)/\(UUID().uuidString).jpg"
+        let downloadURL = try await storageService.uploadImage(path: path, data: imageData)
+        return try await sendMessage(matchId: matchId, senderId: senderId, content: downloadURL, type: .image)
     }
 
     func getMessages(matchId: String, limit: Int, before: Date?) async throws -> [Message] {

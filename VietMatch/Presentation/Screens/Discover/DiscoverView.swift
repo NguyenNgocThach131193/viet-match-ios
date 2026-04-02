@@ -16,8 +16,10 @@ struct DiscoverView: View {
                 } else if !viewModel.hasMoreProfiles {
                     EmptyStateView(
                         icon: "heart.slash",
-                        title: "Hết hồ sơ",
-                        message: "Quay lại sau để khám phá thêm"
+                        title: "Hết hồ sơ rồi!",
+                        message: "Hãy quay lại sau để khám phá thêm",
+                        actionTitle: "Làm mới danh sách",
+                        action: { Task { await viewModel.loadProfiles() } }
                     )
                 } else {
                     cardStack
@@ -34,9 +36,13 @@ struct DiscoverView: View {
         .task {
             await viewModel.loadProfiles()
         }
-        .alert("It's a Match!", isPresented: $viewModel.showMatchAlert) {
-            Button("Nhắn tin") {}
-            Button("Tiếp tục", role: .cancel) {}
+        .alert("It's a Match! 🎉", isPresented: $viewModel.showMatchAlert) {
+            Button("Nhắn tin ngay") {
+                if let matchId = viewModel.currentMatchId {
+                    coordinator.showChat(matchId: matchId)
+                }
+            }
+            Button("Để sau", role: .cancel) {}
         } message: {
             if let profile = viewModel.matchedProfile {
                 Text("Bạn và \(profile.name) đã thích nhau!")

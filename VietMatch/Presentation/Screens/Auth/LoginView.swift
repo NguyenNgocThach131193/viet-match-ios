@@ -1,3 +1,4 @@
+import AuthenticationServices
 import SwiftUI
 
 struct LoginView: View {
@@ -124,18 +125,23 @@ struct LoginView: View {
                 .secondaryButtonStyle()
             }
 
-            Button {} label: {
-                HStack {
-                    Image(systemName: "apple.logo")
-                    Text("Tiếp tục với Apple")
+            SignInWithAppleButton(.signIn) { request in
+                request.requestedScopes = [.fullName, .email]
+                request.nonce = viewModel.prepareAppleSignIn()
+            } onCompletion: { result in
+                Task {
+                    switch result {
+                    case .success(let authorization):
+                        await viewModel.loginWithApple(authorization: authorization)
+                    case .failure(let error):
+                        viewModel.handleAppleSignInError(error)
+                    }
                 }
-                .font(VietMatchTypography.headline)
-                .foregroundColor(.white)
-                .frame(maxWidth: .infinity)
-                .frame(height: VietMatchSpacing.buttonHeight)
-                .background(Color.black)
-                .clipShape(RoundedRectangle(cornerRadius: VietMatchSpacing.buttonCornerRadius))
             }
+            .signInWithAppleButtonStyle(.black)
+            .frame(height: VietMatchSpacing.buttonHeight)
+            .clipShape(RoundedRectangle(cornerRadius: VietMatchSpacing.buttonCornerRadius))
+            .disabled(viewModel.isLoading)
         }
     }
 

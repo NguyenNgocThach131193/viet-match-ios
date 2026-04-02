@@ -1,7 +1,9 @@
+import PhotosUI
 import SwiftUI
 
 struct ChatView: View {
     @ObservedObject var viewModel: ChatViewModel
+    @State private var selectedPhotoItem: PhotosPickerItem?
 
     var body: some View {
         VStack(spacing: 0) {
@@ -44,6 +46,22 @@ struct ChatView: View {
 
     private var messageInputBar: some View {
         HStack(spacing: VietMatchSpacing.md) {
+            PhotosPicker(selection: $selectedPhotoItem, matching: .images) {
+                Image(systemName: "photo")
+                    .font(.title3)
+                    .foregroundColor(viewModel.isSending ? .gray : VietMatchColors.primary)
+            }
+            .disabled(viewModel.isSending)
+            .onChange(of: selectedPhotoItem) { _, newItem in
+                guard let newItem else { return }
+                Task {
+                    if let data = try? await newItem.loadTransferable(type: Data.self) {
+                        await viewModel.sendPhoto(imageData: data)
+                    }
+                    selectedPhotoItem = nil
+                }
+            }
+
             TextField("Nhập tin nhắn...", text: $viewModel.messageText, axis: .vertical)
                 .textFieldStyle(.plain)
                 .lineLimit(1...4)

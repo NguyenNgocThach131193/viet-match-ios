@@ -39,6 +39,10 @@ final class ProfileRepository: ProfileRepositoryProtocol {
         try await storageService.deleteImage(path: photoURL)
     }
 
+    func deleteProfile(userId: String) async throws {
+        try await firestoreService.deleteDocument(collection: "profiles", documentId: userId)
+    }
+
     func updateLocation(userId: String, location: Location) async throws {
         try await firestoreService.updateDocument(
             collection: "profiles",

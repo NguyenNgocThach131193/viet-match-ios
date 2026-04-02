@@ -36,5 +36,7 @@ final class MockProfileRepository: ProfileRepositoryProtocol {
         try deletePhotoResult.get()
     }
 
+    func deleteProfile(userId: String) async throws {}
+
     func updateLocation(userId: String, location: Location) async throws {}
 }

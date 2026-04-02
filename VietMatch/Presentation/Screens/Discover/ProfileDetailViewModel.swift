@@ -7,6 +7,7 @@ final class ProfileDetailViewModel: ObservableObject {
     @Published private(set) var isSwiping = false
     @Published var showMatchAlert = false
     @Published var matchedProfile: Profile?
+    @Published var currentMatchId: String?
     @Published var errorMessage: String?
 
     private let profileId: String
@@ -51,6 +52,7 @@ final class ProfileDetailViewModel: ObservableObject {
             )
             if let match, match.matchedUserId == profile.id {
                 matchedProfile = profile
+                currentMatchId = match.id
                 showMatchAlert = true
             }
         } catch {

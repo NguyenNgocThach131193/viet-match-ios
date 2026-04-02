@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MatchesView: View {
     @ObservedObject var viewModel: MatchesViewModel
+    var onMatchTap: ((String) -> Void)?
 
     var body: some View {
         NavigationStack {
@@ -43,7 +44,12 @@ struct MatchesView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: VietMatchSpacing.md) {
                     ForEach(viewModel.newMatches) { match in
-                        MatchCellView(match: match, style: .compact)
+                        Button {
+                            onMatchTap?(match.id)
+                        } label: {
+                            MatchCellView(match: match, style: .compact)
+                        }
+                        .buttonStyle(.plain)
                     }
                 }
             }
@@ -58,7 +64,12 @@ struct MatchesView: View {
 
             LazyVStack(spacing: VietMatchSpacing.md) {
                 ForEach(viewModel.matches) { match in
-                    MatchCellView(match: match, style: .full)
+                    Button {
+                        onMatchTap?(match.id)
+                    } label: {
+                        MatchCellView(match: match, style: .full)
+                    }
+                    .buttonStyle(.plain)
                 }
             }
         }

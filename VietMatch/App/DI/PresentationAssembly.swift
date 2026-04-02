@@ -133,8 +133,16 @@ final class PresentationAssembly: Assembly {
 
         container.register(SettingsViewModel.self) { resolver in
             MainActor.assumeIsolated {
-                SettingsViewModel(
-                    logoutUseCase: resolver.resolve(LogoutUseCaseProtocol.self)!
+                let userDefaultsService = resolver.resolve(UserDefaultsServiceProtocol.self)!
+                let currentUserId: String = userDefaultsService.get(forKey: UserDefaultsKey.currentUserId) ?? ""
+                return SettingsViewModel(
+                    currentUserId: currentUserId,
+                    logoutUseCase: resolver.resolve(LogoutUseCaseProtocol.self)!,
+                    deleteAccountUseCase: resolver.resolve(DeleteAccountUseCaseProtocol.self)!,
+                    getProfileUseCase: resolver.resolve(GetProfileUseCaseProtocol.self)!,
+                    updateProfileUseCase: resolver.resolve(UpdateProfileUseCaseProtocol.self)!,
+                    fcmService: resolver.resolve(FCMServiceProtocol.self)!,
+                    firestoreService: resolver.resolve(FirestoreServiceProtocol.self)!
                 )
             }
         }

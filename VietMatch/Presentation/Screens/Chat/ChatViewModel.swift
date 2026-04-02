@@ -76,6 +76,22 @@ final class ChatViewModel: ObservableObject {
         message.senderId == currentUserId
     }
 
+    func sendPhoto(imageData: Data) async {
+        guard !isSending else { return }
+        isSending = true
+        do {
+            let message = try await sendMessageUseCase.executeWithImage(
+                matchId: matchId,
+                senderId: currentUserId,
+                imageData: imageData
+            )
+            messages.append(message)
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+        isSending = false
+    }
+
     func loadMoreMessages() async {
         guard let oldest = messages.first else { return }
         do {
