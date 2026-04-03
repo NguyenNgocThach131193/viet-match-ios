@@ -4,6 +4,7 @@ inputDocuments:
   - "_bmad-output/planning-artifacts/prd.md"
   - "_bmad-output/planning-artifacts/architecture.md"
   - "_bmad-output/planning-artifacts/ux-design.md"
+  - "_bmad-output/planning-artifacts/epics.md (reference)"
 ---
 
 # VietMatch - Epic Breakdown
@@ -214,6 +215,20 @@ UX-DR8: LoginView Google Sign-In button phải disable khi `isLoading == true` �
 UX-DR9: DiscoverView phải xử lý empty state sau khi hết cards với EmptyStateView "Hết hồ sơ rồi!" + CTA "Làm mới danh sách".
 
 UX-DR10: Onboarding PhotoUpload step phải hiển thị counter "X/6 ảnh" và prevent continue nếu chưa có ảnh nào.
+
+### Edge Cases (từ PRD)
+
+EC-1: Khi không có kết nối mạng, hiển thị thông báo lỗi tiếng Việt thay vì crash. (Must Have)
+
+EC-2: Khi danh sách Discover hết hồ sơ, hiển thị EmptyStateView với CTA refresh. (Must Have)
+
+EC-3: Khi ảnh tải thất bại, hiển thị placeholder avatar. (Must Have)
+
+EC-4: Khi HEIC/WebP không convert được sang JPEG, fallback sang PNG. (Should Have)
+
+EC-5: Firebase Auth errors (network error) phải hiển thị tiếng Việt, không phải localized Firebase default. (Should Have)
+
+EC-6: Photo URL với trailing slash hoặc encoding khác nhau không được dẫn đến silent no-op khi xóa. (Should Have)
 
 ### FR Coverage Map
 
